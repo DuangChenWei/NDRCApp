@@ -23,8 +23,9 @@
 #define heightOn(a) (a/1334.0)*[UIScreen mainScreen].bounds.size.height
 
 #define ColorWithAlpha(a,b) [UIColor colorWithRed:((a>>16)&0x000000ff)/255.0 green:((a>>8)&0x000000ff)/255.0 blue:((a)&0x000000ff)/255.0 alpha:b]
-#define appMainColor [UIColor colorWithRed:35/255.0 green:197/255.0 blue:184/255.0 alpha:1]
+#define appMainColor [UIColor colorWithRed:233/255.0 green:55/255.0 blue:53/255.0 alpha:1]
 #define appLineColor [UIColor colorWithRed:231/255.0 green:232/255.0 blue:232/255.0 alpha:1]
+#define appDarkLineColor [UIColor colorWithRed:227/255.0 green:227/255.0 blue:227/255.0 alpha:1]
 #define appDarkLabelColor [UIColor colorWithRed:137/255.0 green:136/255.0 blue:137/255.0 alpha:1]
 #define appNavigationBarHeight 64
 
@@ -33,14 +34,14 @@
 
 #define BeiDouServiceUrl @"http://beidoujieshou.sytxmap.com"
 #define BengZhanServiceUrl @"http://appwebservices.bengzhan.sytxmap.com/appbengzhanservices.asmx"
-#define MapViewUrl @"http://ysmapservices.sytxmap.com/arcgis/rest/services/New/ZongTu_Wai/MapServer"
+#define MapViewUrl @"http://ysmapservices.sytxmap.com/arcgis/rest/services/New/FaGai_Wai/MapServer"
 #ifndef __OPTIMIZE__
-#define NSLog(...) NSLog(__VA_ARGS__)
-
+#define NSLog(FORMAT, ...) fprintf(stderr, "%s:%zd\t%s\n", [[[NSString stringWithUTF8String: __FILE__] lastPathComponent] UTF8String], __LINE__, [[NSString stringWithFormat: FORMAT, ## __VA_ARGS__] UTF8String]);
+#define appDeBug YES
 
 #else
-#define NSLog(...) {}
-
+#define NSLog(FORMAT, ...) nil
+#define appDeBug NO
 
 #endif
 

@@ -10,4 +10,4 @@
 #import "JHChart.h"
 #import "JHColumnChartTJ.h"
 #import "JHColumnChart.h"
-
+#import "JHRingChart.h"

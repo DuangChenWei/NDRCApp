@@ -48,7 +48,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aqh-kG-po1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1506" y="134"/>
+            <point key="canvasLocation" x="1550" y="946"/>
         </scene>
         <!--Login View Controller-->
         <scene sceneID="RKQ-ox-mdR">
@@ -65,12 +65,34 @@
                     </view>
                     <navigationItem key="navigationItem" id="MSk-bX-q7r"/>
                     <connections>
-                        <segue destination="jz0-mo-abC" kind="push" identifier="pushToMain" id="gPx-R6-8aV"/>
+                        <segue destination="F9e-V1-s7c" kind="push" identifier="pushToMain" id="NxH-In-1cJ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="t2N-nL-ALS" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="604" y="134"/>
+        </scene>
+        <!--Menu View Controller-->
+        <scene sceneID="gw3-NB-izM">
+            <objects>
+                <viewController id="F9e-V1-s7c" customClass="MenuViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="akP-w0-U33"/>
+                        <viewControllerLayoutGuide type="bottom" id="uEM-Dz-Qkx"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="ewa-g5-nkR">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="wRV-NF-Pww"/>
+                    <connections>
+                        <segue destination="jz0-mo-abC" kind="push" identifier="pushToMap" id="SLF-Ea-mRh"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Cxu-MX-bmb" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1550" y="134"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="hhK-nh-FKG">

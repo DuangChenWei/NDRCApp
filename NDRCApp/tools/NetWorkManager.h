@@ -10,8 +10,8 @@
 
 #import "Soap.h"
 
-#import "SVProgressHUD.h"
-
+#import "ProgressHud.h"
+#import "UserInfoModel.h"
 //#import "AFNetworking.h"
 
 
@@ -19,8 +19,8 @@ typedef enum
 {
     // Apple NetworkStatus Compatible Names.
     Boss     = 0,
-    Driver = 1,
-    NormalUser = 2
+    Administrator = 1,
+    QYUser = 2
    
     
 } PowerStatus;
@@ -55,10 +55,10 @@ typedef enum
 
 
 
-@property(nonatomic,strong)NSMutableDictionary *userInfoDic;
+@property(nonatomic,strong)UserInfoModel *userInfoModel;
 @property(nonatomic,assign)PowerStatus powerStatus;
 -(void)setUserInfoMessageWithDic:(NSDictionary *)dic;
-- (void)GetUserInfo;
+
 -(void)getMapLayers;
 -(void)checkAppVersionNeedUpdate;
 

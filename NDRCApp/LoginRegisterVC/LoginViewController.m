@@ -9,6 +9,9 @@
 #import "LoginViewController.h"
 #import "NetWorkManager.h"
 #import "RegisterViewController.h"
+#import "JPUSHService.h"
+#import "QYQurstionListController.h"
+#import "QYEditMessageController.h"
 @interface LoginViewController ()<UITextFieldDelegate,UIScrollViewDelegate>
 @property(nonatomic,strong)UIScrollView *backScroller;
 @property(nonatomic,strong)UITextField *nameTextField;
@@ -21,7 +24,16 @@
     [super viewDidLoad];
      self.setPopGestureRecognizerOn=YES;
 
+    
+    
+    
     [self addAllViews];
+    
+    
+    [self initMainTitleBar:@"登录"];
+    self.backBtn.hidden=YES;
+    self.menubtn.hidden=YES;
+    self.baseLineView.hidden=YES;
     
     
     UITapGestureRecognizer *tap=[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(backKeyBoard)];
@@ -53,20 +65,13 @@
     [self.view addSubview:self.backScroller];
     self.backScroller.sd_layout.leftSpaceToView(self.view, 0).rightSpaceToView(self.view, 0).topSpaceToView(self.view, 0).bottomSpaceToView(self.view, 0);
     
-    UIImageView *BackIcon=[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"loginBack.png"]];
-    [self.backScroller addSubview:BackIcon];
-    BackIcon.sd_layout.spaceToSuperView(UIEdgeInsetsMake(0, 0, 0, 0));
-    
-    UIImageView *topIcon=[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Loginlogo.png"]];
-    [self.backScroller addSubview:topIcon];
-    topIcon.sd_layout.topSpaceToView(self.backScroller, widthOn(100)).centerXEqualToView(self.backScroller).autoHeightRatio(1);
     
     
+    CGFloat textfieldY=appNavigationBarHeight;
     
-    
-    self.nameTextField=[self creatLogintextFieldViewWithIcon:@"userNameicon.png" placehoder:@"请输入用户名" frameY:widthOn(500)];
+    self.nameTextField=[self creatLogintextFieldViewWithIcon:@"手机号码" placehoder:@"请输入手机号码" frameY:textfieldY];
     self.nameTextField.keyboardType=UIKeyboardTypeNumberPad;
-    self.passwordTextField=[self creatLogintextFieldViewWithIcon:@"passwordIcon.png" placehoder:@"请输入密码" frameY:widthOn(600)];
+    self.passwordTextField=[self creatLogintextFieldViewWithIcon:@"密码" placehoder:@"请输入密码" frameY:textfieldY+widthOn(100)];
     self.passwordTextField.secureTextEntry = YES;
     
     self.nameTextField.delegate=self;
@@ -90,14 +95,14 @@
     loginBtn.backgroundColor=appMainColor;
     
     [self.backScroller addSubview:loginBtn];
-    loginBtn.sd_layout.centerXEqualToView(self.backScroller).topSpaceToView(self.passwordTextField.superview, widthOn(50)).widthIs(k_ScreenWidth*0.5).heightIs(widthOn(80));
-    loginBtn.sd_cornerRadiusFromHeightRatio=@0.5;
+    loginBtn.sd_layout.widthIs(widthOn(400)).centerXEqualToView(self.backScroller).topSpaceToView(self.passwordTextField, widthOn(100)).heightIs(widthOn(80));
+    loginBtn.sd_cornerRadius=[NSNumber numberWithFloat:widthOn(40)];
     
     
     UIButton *registerBtn=[UIButton buttonWithType:UIButtonTypeSystem];
-    [registerBtn setTitle:@"立即注册?" forState:UIControlStateNormal];
+    [registerBtn setTitle:@"没有账号立即注册?" forState:UIControlStateNormal];
     [registerBtn setTitleColor:appMainColor forState:UIControlStateNormal];
-    registerBtn.titleLabel.font=[UIFont systemFontOfSize:widthOn(34)];
+    registerBtn.titleLabel.font=[UIFont systemFontOfSize:widthOn(32)];
     [self.backScroller addSubview:registerBtn];
     registerBtn.sd_layout.topSpaceToView(loginBtn, 5).widthRatioToView(loginBtn, 1).centerXEqualToView(loginBtn).heightRatioToView(loginBtn, 1);
     
@@ -108,29 +113,35 @@
     
 }
 
--(UITextField *)creatLogintextFieldViewWithIcon:(NSString *)icon placehoder:(NSString *)hoder frameY:( CGFloat )floatY{
+-(UITextField *)creatLogintextFieldViewWithIcon:(NSString *)titleStr placehoder:(NSString *)hoder frameY:( CGFloat )floatY{
 
-    UIView *view=[[UIView alloc] init];
-    view.layer.borderWidth=1.5;
-    view.layer.borderColor=appMainColor.CGColor;
-    view.backgroundColor=[UIColor whiteColor];
-//    if ([hoder isEqualToString:@"请输入密码"]) {
-//        view.layer.borderColor=appLineColor.CGColor;
-//    }
-    view.clipsToBounds=YES;
-    [self.backScroller addSubview:view];
-    view.sd_layout.leftSpaceToView(self.backScroller, widthOn(100)).topSpaceToView(self.backScroller, floatY).rightSpaceToView(self.backScroller, widthOn(100)).heightIs(widthOn(80));
     
     
-    UIImageView *iconImv=[[UIImageView alloc] initWithImage:[UIImage imageNamed:icon]];
-    [view addSubview:iconImv];
-    iconImv.sd_layout.leftSpaceToView(view, widthOn(35)).centerYEqualToView(view).widthIs(widthOn(36));
     
+    
+
     UITextField *textField=[[UITextField alloc] init];
     textField.placeholder=hoder;
     textField.font=[UIFont systemFontOfSize:widthOn(34)];
-    [view addSubview:textField];
-    textField.sd_layout.leftSpaceToView(iconImv, widthOn(35)).topSpaceToView(view, 0).bottomSpaceToView(view, 0).rightSpaceToView(view, 0);
+    [self.backScroller addSubview:textField];
+    textField.sd_layout.leftSpaceToView(self.backScroller, widthOn(30)).topSpaceToView(self.backScroller, floatY).rightSpaceToView(self.backScroller, widthOn(30)).heightIs(widthOn(80));
+    
+    textField.leftViewMode=UITextFieldViewModeAlways;
+    UILabel *leftLabel=[[UILabel alloc] init];
+    leftLabel.frame=CGRectMake(0, 0, widthOn(180), widthOn(80));
+    leftLabel.text=titleStr;
+    leftLabel.font=[UIFont systemFontOfSize:widthOn(34)];
+    leftLabel.textColor=ColorWithAlpha(0x999999, 1);
+    textField.leftView=leftLabel;
+    
+    
+    UIView *view=[[UIView alloc] init];
+    
+    view.backgroundColor=appLineColor;
+
+    [textField addSubview:view];
+    view.sd_layout.leftSpaceToView(textField, 0).bottomSpaceToView(textField, 0).widthRatioToView(textField, 1).heightIs(1);
+
     
     return textField;
     
@@ -143,7 +154,7 @@
     [self backKeyBoard];
     
     if ([self.nameTextField.text isEqualToString:@""]) {
-        [[NetWorkManager sharedInstance] showExceptionMessageWithString:@"清填写手机号"];
+        [[NetWorkManager sharedInstance] showExceptionMessageWithString:@"清填写账号"];
         return;
     }
     
@@ -153,36 +164,47 @@
     }
     
     
+    [[ProgressHud shareHud] startLoadingWithShowView:self.view text:@""];
     
-    [SVProgressHUD showWithStatus:@"正在提交"];
     
     NSMutableDictionary *BodyDic=[NSMutableDictionary dictionary];
     [BodyDic setValue:self.nameTextField.text forKey:@"loginName"];
     [BodyDic setValue:self.passwordTextField.text forKey:@"loginPwd"];
 
     
-    NSLog(@"传的注册参数：%@",BodyDic);
+    NSLog(@"传的登录参数：%@",BodyDic);
     
-    [[NetWorkManager sharedInstance] GetDictionaryMethodWithUrl:@"Get_RainLoginOKOrNo" parameters:BodyDic success:^(id response) {
-        [SVProgressHUD dismiss];
+    [[NetWorkManager sharedInstance] GetDictionaryMethodWithUrl:@"Get_Login" parameters:BodyDic success:^(id response) {
+        [[ProgressHud shareHud] stopLoading];
         NSLog(@"登录返回值%@",response);
-        NSString *returnStr=response[@"RETURNNUM"][@"text"];
+        NSString *returnStr=response[@"State"][@"text"];
         if ([returnStr isEqualToString:@"0"]) {
 //            [[NetWorkManager sharedInstance] showExceptionMessageWithString:@"登录成功"];
             [[NSUserDefaults standardUserDefaults] setObject:self.nameTextField.text forKey:@"tel"];
             [[NSUserDefaults standardUserDefaults] setObject:self.passwordTextField.text forKey:@"password"];
             [[NSUserDefaults standardUserDefaults] synchronize];
             
-            [self performSegueWithIdentifier:@"pushToMain" sender:self];
+            [[NetWorkManager sharedInstance] setUserInfoMessageWithDic:response];
+            
+            if ([NetWorkManager sharedInstance].powerStatus==QYUser) {
+                QYEditMessageController *qv=[[QYEditMessageController alloc] init];
+                [self.navigationController pushViewController:qv animated:YES];
+            }else{
+                [self performSegueWithIdentifier:@"pushToMain" sender:self];
+            }
+
+            
+            [JPUSHService setAlias:self.nameTextField.text callbackSelector:nil object:nil];
+            
         }else if ([returnStr isEqualToString:@"2"]){
-            [[NetWorkManager sharedInstance] showExceptionMessageWithString:@"登录失败，账号或密码错误"];
+            [[NetWorkManager sharedInstance] showExceptionMessageWithString:@"登录失败，账号名或密码错误"];
         }else{
             [[NetWorkManager sharedInstance] showExceptionMessageWithString:@"登录失败，未知错误，请联系管理员"];
         }
     } failure:^(NSError *error) {
-        [SVProgressHUD dismiss];
+        [[ProgressHud shareHud] stopLoading];
         
-        [[NetWorkManager sharedInstance] showExceptionMessageWithString:@"注册失败，请检查网络后重试"];
+        [[NetWorkManager sharedInstance] showExceptionMessageWithString:@"登录失败，请检查网络后重试"];
     }];
     
 

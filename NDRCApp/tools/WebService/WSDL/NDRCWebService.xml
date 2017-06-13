@@ -1,0 +1,812 @@
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" targetNamespace="http://tempuri.org/">
+    <wsdl:types>
+        <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+            <s:element name="HelloWorld">
+                <s:complexType/>
+            </s:element>
+            <s:element name="HelloWorldResponse">
+                <s:complexType>
+                    <s:sequence>
+                        <s:element minOccurs="0" maxOccurs="1" name="HelloWorldResult" type="s:string"/>
+                    </s:sequence>
+                </s:complexType>
+            </s:element>
+            <s:element name="Get_Login">
+                <s:complexType>
+                    <s:sequence>
+                        <s:element minOccurs="0" maxOccurs="1" name="loginName" type="s:string"/>
+                        <s:element minOccurs="0" maxOccurs="1" name="loginPwd" type="s:string"/>
+                    </s:sequence>
+                </s:complexType>
+            </s:element>
+            <s:element name="Get_LoginResponse">
+                <s:complexType>
+                    <s:sequence>
+                        <s:element minOccurs="0" maxOccurs="1" name="Get_LoginResult" type="tns:LoginAndInsertUser"/>
+                    </s:sequence>
+                </s:complexType>
+            </s:element>
+            <s:complexType name="LoginAndInsertUser">
+                <s:sequence>
+                    <s:element minOccurs="1" maxOccurs="1" name="State" type="s:int"/>
+                    <s:element minOccurs="0" maxOccurs="1" name="loginUserList" type="tns:ArrayOfLoginUser"/>
+                </s:sequence>
+            </s:complexType>
+            <s:complexType name="ArrayOfLoginUser">
+                <s:sequence>
+                    <s:element minOccurs="0" maxOccurs="unbounded" name="LoginUser" nillable="true" type="tns:LoginUser"/>
+                </s:sequence>
+            </s:complexType>
+            <s:complexType name="LoginUser">
+                <s:sequence>
+                    <s:element minOccurs="0" maxOccurs="1" name="ID" type="s:string"/>
+                    <s:element minOccurs="0" maxOccurs="1" name="Name" type="s:string"/>
+                    <s:element minOccurs="0" maxOccurs="1" name="Sex" type="s:string"/>
+                    <s:element minOccurs="0" maxOccurs="1" name="Power" type="s:string"/>
+                    <s:element minOccurs="0" maxOccurs="1" name="Tel" type="s:string"/>
+                    <s:element minOccurs="0" maxOccurs="1" name="BriefList" type="tns:ArrayOfBRIEF"/>
+                    <s:element minOccurs="0" maxOccurs="1" name="GuanlijuList" type="tns:ArrayOfGUANLIJU"/>
+                </s:sequence>
+            </s:complexType>
+            <s:complexType name="ArrayOfBRIEF">
+                <s:sequence>
+                    <s:element minOccurs="0" maxOccurs="unbounded" name="BRIEF" nillable="true" type="tns:BRIEF"/>
+                </s:sequence>
+            </s:complexType>
+            <s:complexType name="BRIEF">
+                <s:sequence>
+                    <s:element minOccurs="0" maxOccurs="1" name="ID" type="s:string"/>
+                    <s:element minOccurs="0" maxOccurs="1" name="PRONAME" type="s:string"/>
+                    <s:element minOccurs="0" maxOccurs="1" name="COMPANYPROFILE" type="s:string"/>
+                    <s:element minOccurs="0" maxOccurs="1" name="ADDRESS" type="s:string"/>
+                    <s:element minOccurs="0" maxOccurs="1" name="CONTENT" type="s:string"/>
+                    <s:element minOccurs="0" maxOccurs="1" name="PROGRESS" type="s:string"/>
+                    <s:element minOccurs="0" maxOccurs="1" name="ATTEN" type="s:string"/>
+                    <s:element minOccurs="0" maxOccurs="1" name="TEL" type="s:string"/>
+                </s:sequence>
+            </s:complexType>
+            <s:complexType name="ArrayOfGUANLIJU">
+                <s:sequence>
+                    <s:element minOccurs="0" maxOccurs="unbounded" name="GUANLIJU" nillable="true" type="tns:GUANLIJU"/>
+                </s:sequence>
+            </s:complexType>
+            <s:complexType name="GUANLIJU">
+                <s:sequence>
+                    <s:element minOccurs="0" maxOccurs="1" name="ID" type="s:string"/>
+                    <s:element minOccurs="0" maxOccurs="1" name="GLJNAME" type="s:string"/>
+                </s:sequence>
+            </s:complexType>
+            <s:element name="Update_Password">
+                <s:complexType>
+                    <s:sequence>
+                        <s:element minOccurs="0" maxOccurs="1" name="loginName" type="s:string"/>
+                        <s:element minOccurs="0" maxOccurs="1" name="OldPwd" type="s:string"/>
+                        <s:element minOccurs="0" maxOccurs="1" name="NewPwd" type="s:string"/>
+                    </s:sequence>
+                </s:complexType>
+            </s:element>
+            <s:element name="Update_PasswordResponse">
+                <s:complexType>
+                    <s:sequence>
+                        <s:element minOccurs="0" maxOccurs="1" name="Update_PasswordResult" type="tns:LoginAndInsertUser"/>
+                    </s:sequence>
+                </s:complexType>
+            </s:element>
+            <s:element name="GetList">
+                <s:complexType>
+                    <s:sequence>
+                        <s:element minOccurs="0" maxOccurs="1" name="ID" type="s:string"/>
+                    </s:sequence>
+                </s:complexType>
+            </s:element>
+            <s:element name="GetListResponse">
+                <s:complexType>
+                    <s:sequence>
+                        <s:element minOccurs="0" maxOccurs="1" name="GetListResult" type="tns:ArrayOfLoginUser"/>
+                    </s:sequence>
+                </s:complexType>
+            </s:element>
+            <s:element name="Add_LoginUser">
+                <s:complexType>
+                    <s:sequence>
+                        <s:element minOccurs="0" maxOccurs="1" name="loginName" type="s:string"/>
+                        <s:element minOccurs="0" maxOccurs="1" name="loginPwd" type="s:string"/>
+                        <s:element minOccurs="0" maxOccurs="1" name="companyName" type="s:string"/>
+                    </s:sequence>
+                </s:complexType>
+            </s:element>
+            <s:element name="Add_LoginUserResponse">
+                <s:complexType>
+                    <s:sequence>
+                        <s:element minOccurs="0" maxOccurs="1" name="Add_LoginUserResult" type="tns:LoginAndInsertUser"/>
+                    </s:sequence>
+                </s:complexType>
+            </s:element>
+            <s:element name="Check_ProjectBrief">
+                <s:complexType>
+                    <s:sequence>
+                        <s:element minOccurs="0" maxOccurs="1" name="ProID" type="s:string"/>
+                        <s:element minOccurs="0" maxOccurs="1" name="ProName" type="s:string"/>
+                    </s:sequence>
+                </s:complexType>
+            </s:element>
+            <s:element name="Check_ProjectBriefResponse">
+                <s:complexType>
+                    <s:sequence>
+                        <s:element minOccurs="0" maxOccurs="1" name="Check_ProjectBriefResult" type="tns:ArrayOfProjectBrief"/>
+                    </s:sequence>
+                </s:complexType>
+            </s:element>
+            <s:complexType name="ArrayOfProjectBrief">
+                <s:sequence>
+                    <s:element minOccurs="0" maxOccurs="unbounded" name="ProjectBrief" nillable="true" type="tns:ProjectBrief"/>
+                </s:sequence>
+            </s:complexType>
+            <s:complexType name="ProjectBrief">
+                <s:sequence>
+                    <s:element minOccurs="0" maxOccurs="1" name="ID" type="s:string"/>
+                    <s:element minOccurs="0" maxOccurs="1" name="PRONAME" type="s:string"/>
+                    <s:element minOccurs="0" maxOccurs="1" name="COMPANYPROFILE" type="s:string"/>
+                    <s:element minOccurs="0" maxOccurs="1" name="ADDRESS" type="s:string"/>
+                    <s:element minOccurs="0" maxOccurs="1" name="CONTENT" type="s:string"/>
+                    <s:element minOccurs="0" maxOccurs="1" name="PROGRESS" type="s:string"/>
+                    <s:element minOccurs="0" maxOccurs="1" name="ATTEN" type="s:string"/>
+                    <s:element minOccurs="0" maxOccurs="1" name="TEL" type="s:string"/>
+                </s:sequence>
+            </s:complexType>
+            <s:element name="Check_BRIEFINFO">
+                <s:complexType>
+                    <s:sequence>
+                        <s:element minOccurs="0" maxOccurs="1" name="id" type="s:string"/>
+                    </s:sequence>
+                </s:complexType>
+            </s:element>
+            <s:element name="Check_BRIEFINFOResponse">
+                <s:complexType>
+                    <s:sequence>
+                        <s:element minOccurs="0" maxOccurs="1" name="Check_BRIEFINFOResult" type="tns:ArrayOfBRIEF"/>
+                    </s:sequence>
+                </s:complexType>
+            </s:element>
+            <s:element name="Check_DETAILSINFO">
+                <s:complexType>
+                    <s:sequence>
+                        <s:element minOccurs="0" maxOccurs="1" name="id" type="s:string"/>
+                    </s:sequence>
+                </s:complexType>
+            </s:element>
+            <s:element name="Check_DETAILSINFOResponse">
+                <s:complexType>
+                    <s:sequence>
+                        <s:element minOccurs="0" maxOccurs="1" name="Check_DETAILSINFOResult" type="tns:ArrayOfDETAILS"/>
+                    </s:sequence>
+                </s:complexType>
+            </s:element>
+            <s:complexType name="ArrayOfDETAILS">
+                <s:sequence>
+                    <s:element minOccurs="0" maxOccurs="unbounded" name="DETAILS" nillable="true" type="tns:DETAILS"/>
+                </s:sequence>
+            </s:complexType>
+            <s:complexType name="DETAILS">
+                <s:sequence>
+                    <s:element minOccurs="0" maxOccurs="1" name="ID" type="s:string"/>
+                    <s:element minOccurs="0" maxOccurs="1" name="PRONAME" type="s:string"/>
+                    <s:element minOccurs="0" maxOccurs="1" name="JSGHJZYJSNR" type="s:string"/>
+                    <s:element minOccurs="0" maxOccurs="1" name="GCBFL" type="s:string"/>
+                    <s:element minOccurs="0" maxOccurs="1" name="SUMINVEST" type="s:string"/>
+                    <s:element minOccurs="0" maxOccurs="1" name="PLANINVEST" type="s:string"/>
+                    <s:element minOccurs="0" maxOccurs="1" name="PROXZ" type="s:string"/>
+                    <s:element minOccurs="0" maxOccurs="1" name="KGQK" type="s:string"/>
+                    <s:element minOccurs="0" maxOccurs="1" name="INVESTFINISH" type="s:string"/>
+                    <s:element minOccurs="0" maxOccurs="1" name="LX" type="s:string"/>
+                    <s:element minOccurs="0" maxOccurs="1" name="TD" type="s:string"/>
+                    <s:element minOccurs="0" maxOccurs="1" name="GH" type="s:string"/>
+                    <s:element minOccurs="0" maxOccurs="1" name="HP" type="s:string"/>
+                    <s:element minOccurs="0" maxOccurs="1" name="SG" type="s:string"/>
+                    <s:element minOccurs="0" maxOccurs="1" name="PROGRESS" type="s:string"/>
+                    <s:element minOccurs="0" maxOccurs="1" name="PROBLEM" type="s:string"/>
+                    <s:element minOccurs="0" maxOccurs="1" name="TJDW" type="s:string"/>
+                </s:sequence>
+            </s:complexType>
+            <s:element name="Check_GUANLIJUINFO">
+                <s:complexType>
+                    <s:sequence>
+                        <s:element minOccurs="0" maxOccurs="1" name="id" type="s:string"/>
+                    </s:sequence>
+                </s:complexType>
+            </s:element>
+            <s:element name="Check_GUANLIJUINFOResponse">
+                <s:complexType>
+                    <s:sequence>
+                        <s:element minOccurs="0" maxOccurs="1" name="Check_GUANLIJUINFOResult" type="tns:ArrayOfGUANLIJU"/>
+                    </s:sequence>
+                </s:complexType>
+            </s:element>
+            <s:element name="Check_ZhiNengOneINFO">
+                <s:complexType>
+                    <s:sequence>
+                        <s:element minOccurs="0" maxOccurs="1" name="id" type="s:string"/>
+                    </s:sequence>
+                </s:complexType>
+            </s:element>
+            <s:element name="Check_ZhiNengOneINFOResponse">
+                <s:complexType>
+                    <s:sequence>
+                        <s:element minOccurs="0" maxOccurs="1" name="Check_ZhiNengOneINFOResult" type="tns:ArrayOfZHINENGONE"/>
+                    </s:sequence>
+                </s:complexType>
+            </s:element>
+            <s:complexType name="ArrayOfZHINENGONE">
+                <s:sequence>
+                    <s:element minOccurs="0" maxOccurs="unbounded" name="ZHINENGONE" nillable="true" type="tns:ZHINENGONE"/>
+                </s:sequence>
+            </s:complexType>
+            <s:complexType name="ZHINENGONE">
+                <s:sequence>
+                    <s:element minOccurs="0" maxOccurs="1" name="ID" type="s:string"/>
+                    <s:element minOccurs="0" maxOccurs="1" name="ZHINENGONENAME" type="s:string"/>
+                </s:sequence>
+            </s:complexType>
+            <s:element name="Check_ZhiNengTwoINFO">
+                <s:complexType>
+                    <s:sequence>
+                        <s:element minOccurs="0" maxOccurs="1" name="ZHINENGONEID" type="s:string"/>
+                    </s:sequence>
+                </s:complexType>
+            </s:element>
+            <s:element name="Check_ZhiNengTwoINFOResponse">
+                <s:complexType>
+                    <s:sequence>
+                        <s:element minOccurs="0" maxOccurs="1" name="Check_ZhiNengTwoINFOResult" type="tns:ArrayOfZHINENGTWO"/>
+                    </s:sequence>
+                </s:complexType>
+            </s:element>
+            <s:complexType name="ArrayOfZHINENGTWO">
+                <s:sequence>
+                    <s:element minOccurs="0" maxOccurs="unbounded" name="ZHINENGTWO" nillable="true" type="tns:ZHINENGTWO"/>
+                </s:sequence>
+            </s:complexType>
+            <s:complexType name="ZHINENGTWO">
+                <s:sequence>
+                    <s:element minOccurs="0" maxOccurs="1" name="ZHINENGONEID" type="s:string"/>
+                    <s:element minOccurs="0" maxOccurs="1" name="ZHINENGTWONAME" type="s:string"/>
+                    <s:element minOccurs="0" maxOccurs="1" name="GLJID" type="s:string"/>
+                </s:sequence>
+            </s:complexType>
+            <s:element name="Add_Problem">
+                <s:complexType>
+                    <s:sequence>
+                        <s:element minOccurs="0" maxOccurs="1" name="loginPerID" type="s:string"/>
+                        <s:element minOccurs="0" maxOccurs="1" name="gljID" type="s:string"/>
+                        <s:element minOccurs="0" maxOccurs="1" name="fuZePerID" type="s:string"/>
+                        <s:element minOccurs="0" maxOccurs="1" name="proID" type="s:string"/>
+                        <s:element minOccurs="0" maxOccurs="1" name="problem" type="s:string"/>
+                    </s:sequence>
+                </s:complexType>
+            </s:element>
+            <s:element name="Add_ProblemResponse">
+                <s:complexType>
+                    <s:sequence>
+                        <s:element minOccurs="0" maxOccurs="1" name="Add_ProblemResult" type="tns:AddAndCheckProblem"/>
+                    </s:sequence>
+                </s:complexType>
+            </s:element>
+            <s:complexType name="AddAndCheckProblem">
+                <s:sequence>
+                    <s:element minOccurs="0" maxOccurs="1" name="PRONAME" type="s:string"/>
+                    <s:element minOccurs="0" maxOccurs="1" name="FUNAME" type="s:string"/>
+                    <s:element minOccurs="0" maxOccurs="1" name="LOGINNAME" type="s:string"/>
+                    <s:element minOccurs="0" maxOccurs="1" name="GUANID" type="s:string"/>
+                    <s:element minOccurs="0" maxOccurs="1" name="GLJNAME" type="s:string"/>
+                    <s:element minOccurs="0" maxOccurs="1" name="QUEID" type="s:string"/>
+                    <s:element minOccurs="0" maxOccurs="1" name="PROBLEMCONTENT" type="s:string"/>
+                    <s:element minOccurs="1" maxOccurs="1" name="STATE" type="s:int"/>
+                    <s:element minOccurs="0" maxOccurs="1" name="TIME" type="s:string"/>
+                    <s:element minOccurs="0" maxOccurs="1" name="ImageOperList" type="tns:ArrayOfImageOper"/>
+                    <s:element minOccurs="0" maxOccurs="1" name="QuestionID" type="s:string"/>
+                </s:sequence>
+            </s:complexType>
+            <s:complexType name="ArrayOfImageOper">
+                <s:sequence>
+                    <s:element minOccurs="0" maxOccurs="unbounded" name="ImageOper" nillable="true" type="tns:ImageOper"/>
+                </s:sequence>
+            </s:complexType>
+            <s:complexType name="ImageOper">
+                <s:sequence>
+                    <s:element minOccurs="0" maxOccurs="1" name="ID" type="s:string"/>
+                    <s:element minOccurs="0" maxOccurs="1" name="QUEID" type="s:string"/>
+                    <s:element minOccurs="0" maxOccurs="1" name="IMAGENUMID" type="s:string"/>
+                    <s:element minOccurs="0" maxOccurs="1" name="ADDRESS" type="s:string"/>
+                    <s:element minOccurs="0" maxOccurs="1" name="QuestionID" type="s:string"/>
+                    <s:element minOccurs="1" maxOccurs="1" name="STATE" type="s:int"/>
+                </s:sequence>
+            </s:complexType>
+            <s:element name="Add_Image">
+                <s:complexType>
+                    <s:sequence>
+                        <s:element minOccurs="0" maxOccurs="1" name="questionID" type="s:string"/>
+                        <s:element minOccurs="0" maxOccurs="1" name="image" type="s:base64Binary"/>
+                    </s:sequence>
+                </s:complexType>
+            </s:element>
+            <s:element name="Add_ImageResponse">
+                <s:complexType>
+                    <s:sequence>
+                        <s:element minOccurs="0" maxOccurs="1" name="Add_ImageResult" type="tns:ImageOper"/>
+                    </s:sequence>
+                </s:complexType>
+            </s:element>
+            <s:element name="Check_Problem">
+                <s:complexType>
+                    <s:sequence>
+                        <s:element minOccurs="0" maxOccurs="1" name="proID" type="s:string"/>
+                        <s:element minOccurs="0" maxOccurs="1" name="gljID" type="s:string"/>
+                    </s:sequence>
+                </s:complexType>
+            </s:element>
+            <s:element name="Check_ProblemResponse">
+                <s:complexType>
+                    <s:sequence>
+                        <s:element minOccurs="0" maxOccurs="1" name="Check_ProblemResult" type="tns:ArrayOfAddAndCheckProblem"/>
+                    </s:sequence>
+                </s:complexType>
+            </s:element>
+            <s:complexType name="ArrayOfAddAndCheckProblem">
+                <s:sequence>
+                    <s:element minOccurs="0" maxOccurs="unbounded" name="AddAndCheckProblem" nillable="true" type="tns:AddAndCheckProblem"/>
+                </s:sequence>
+            </s:complexType>
+            <s:element name="Update_ProblemState">
+                <s:complexType>
+                    <s:sequence>
+                        <s:element minOccurs="0" maxOccurs="1" name="ID" type="s:string"/>
+                        <s:element minOccurs="0" maxOccurs="1" name="state" type="s:string"/>
+                    </s:sequence>
+                </s:complexType>
+            </s:element>
+            <s:element name="Update_ProblemStateResponse">
+                <s:complexType>
+                    <s:sequence>
+                        <s:element minOccurs="0" maxOccurs="1" name="Update_ProblemStateResult" type="tns:AddAndCheckProblem"/>
+                    </s:sequence>
+                </s:complexType>
+            </s:element>
+        </s:schema>
+    </wsdl:types>
+    <wsdl:message name="HelloWorldSoapIn">
+        <wsdl:part name="parameters" element="tns:HelloWorld"/>
+    </wsdl:message>
+    <wsdl:message name="HelloWorldSoapOut">
+        <wsdl:part name="parameters" element="tns:HelloWorldResponse"/>
+    </wsdl:message>
+    <wsdl:message name="Get_LoginSoapIn">
+        <wsdl:part name="parameters" element="tns:Get_Login"/>
+    </wsdl:message>
+    <wsdl:message name="Get_LoginSoapOut">
+        <wsdl:part name="parameters" element="tns:Get_LoginResponse"/>
+    </wsdl:message>
+    <wsdl:message name="Update_PasswordSoapIn">
+        <wsdl:part name="parameters" element="tns:Update_Password"/>
+    </wsdl:message>
+    <wsdl:message name="Update_PasswordSoapOut">
+        <wsdl:part name="parameters" element="tns:Update_PasswordResponse"/>
+    </wsdl:message>
+    <wsdl:message name="GetListSoapIn">
+        <wsdl:part name="parameters" element="tns:GetList"/>
+    </wsdl:message>
+    <wsdl:message name="GetListSoapOut">
+        <wsdl:part name="parameters" element="tns:GetListResponse"/>
+    </wsdl:message>
+    <wsdl:message name="Add_LoginUserSoapIn">
+        <wsdl:part name="parameters" element="tns:Add_LoginUser"/>
+    </wsdl:message>
+    <wsdl:message name="Add_LoginUserSoapOut">
+        <wsdl:part name="parameters" element="tns:Add_LoginUserResponse"/>
+    </wsdl:message>
+    <wsdl:message name="Check_ProjectBriefSoapIn">
+        <wsdl:part name="parameters" element="tns:Check_ProjectBrief"/>
+    </wsdl:message>
+    <wsdl:message name="Check_ProjectBriefSoapOut">
+        <wsdl:part name="parameters" element="tns:Check_ProjectBriefResponse"/>
+    </wsdl:message>
+    <wsdl:message name="Check_BRIEFINFOSoapIn">
+        <wsdl:part name="parameters" element="tns:Check_BRIEFINFO"/>
+    </wsdl:message>
+    <wsdl:message name="Check_BRIEFINFOSoapOut">
+        <wsdl:part name="parameters" element="tns:Check_BRIEFINFOResponse"/>
+    </wsdl:message>
+    <wsdl:message name="Check_DETAILSINFOSoapIn">
+        <wsdl:part name="parameters" element="tns:Check_DETAILSINFO"/>
+    </wsdl:message>
+    <wsdl:message name="Check_DETAILSINFOSoapOut">
+        <wsdl:part name="parameters" element="tns:Check_DETAILSINFOResponse"/>
+    </wsdl:message>
+    <wsdl:message name="Check_GUANLIJUINFOSoapIn">
+        <wsdl:part name="parameters" element="tns:Check_GUANLIJUINFO"/>
+    </wsdl:message>
+    <wsdl:message name="Check_GUANLIJUINFOSoapOut">
+        <wsdl:part name="parameters" element="tns:Check_GUANLIJUINFOResponse"/>
+    </wsdl:message>
+    <wsdl:message name="Check_ZhiNengOneINFOSoapIn">
+        <wsdl:part name="parameters" element="tns:Check_ZhiNengOneINFO"/>
+    </wsdl:message>
+    <wsdl:message name="Check_ZhiNengOneINFOSoapOut">
+        <wsdl:part name="parameters" element="tns:Check_ZhiNengOneINFOResponse"/>
+    </wsdl:message>
+    <wsdl:message name="Check_ZhiNengTwoINFOSoapIn">
+        <wsdl:part name="parameters" element="tns:Check_ZhiNengTwoINFO"/>
+    </wsdl:message>
+    <wsdl:message name="Check_ZhiNengTwoINFOSoapOut">
+        <wsdl:part name="parameters" element="tns:Check_ZhiNengTwoINFOResponse"/>
+    </wsdl:message>
+    <wsdl:message name="Add_ProblemSoapIn">
+        <wsdl:part name="parameters" element="tns:Add_Problem"/>
+    </wsdl:message>
+    <wsdl:message name="Add_ProblemSoapOut">
+        <wsdl:part name="parameters" element="tns:Add_ProblemResponse"/>
+    </wsdl:message>
+    <wsdl:message name="Add_ImageSoapIn">
+        <wsdl:part name="parameters" element="tns:Add_Image"/>
+    </wsdl:message>
+    <wsdl:message name="Add_ImageSoapOut">
+        <wsdl:part name="parameters" element="tns:Add_ImageResponse"/>
+    </wsdl:message>
+    <wsdl:message name="Check_ProblemSoapIn">
+        <wsdl:part name="parameters" element="tns:Check_Problem"/>
+    </wsdl:message>
+    <wsdl:message name="Check_ProblemSoapOut">
+        <wsdl:part name="parameters" element="tns:Check_ProblemResponse"/>
+    </wsdl:message>
+    <wsdl:message name="Update_ProblemStateSoapIn">
+        <wsdl:part name="parameters" element="tns:Update_ProblemState"/>
+    </wsdl:message>
+    <wsdl:message name="Update_ProblemStateSoapOut">
+        <wsdl:part name="parameters" element="tns:Update_ProblemStateResponse"/>
+    </wsdl:message>
+    <wsdl:portType name="FGWebServerSoap">
+        <wsdl:operation name="HelloWorld">
+            <wsdl:input message="tns:HelloWorldSoapIn"/>
+            <wsdl:output message="tns:HelloWorldSoapOut"/>
+        </wsdl:operation>
+        <wsdl:operation name="Get_Login">
+            <wsdl:input message="tns:Get_LoginSoapIn"/>
+            <wsdl:output message="tns:Get_LoginSoapOut"/>
+        </wsdl:operation>
+        <wsdl:operation name="Update_Password">
+            <wsdl:input message="tns:Update_PasswordSoapIn"/>
+            <wsdl:output message="tns:Update_PasswordSoapOut"/>
+        </wsdl:operation>
+        <wsdl:operation name="GetList">
+            <wsdl:input message="tns:GetListSoapIn"/>
+            <wsdl:output message="tns:GetListSoapOut"/>
+        </wsdl:operation>
+        <wsdl:operation name="Add_LoginUser">
+            <wsdl:input message="tns:Add_LoginUserSoapIn"/>
+            <wsdl:output message="tns:Add_LoginUserSoapOut"/>
+        </wsdl:operation>
+        <wsdl:operation name="Check_ProjectBrief">
+            <wsdl:input message="tns:Check_ProjectBriefSoapIn"/>
+            <wsdl:output message="tns:Check_ProjectBriefSoapOut"/>
+        </wsdl:operation>
+        <wsdl:operation name="Check_BRIEFINFO">
+            <wsdl:input message="tns:Check_BRIEFINFOSoapIn"/>
+            <wsdl:output message="tns:Check_BRIEFINFOSoapOut"/>
+        </wsdl:operation>
+        <wsdl:operation name="Check_DETAILSINFO">
+            <wsdl:input message="tns:Check_DETAILSINFOSoapIn"/>
+            <wsdl:output message="tns:Check_DETAILSINFOSoapOut"/>
+        </wsdl:operation>
+        <wsdl:operation name="Check_GUANLIJUINFO">
+            <wsdl:input message="tns:Check_GUANLIJUINFOSoapIn"/>
+            <wsdl:output message="tns:Check_GUANLIJUINFOSoapOut"/>
+        </wsdl:operation>
+        <wsdl:operation name="Check_ZhiNengOneINFO">
+            <wsdl:input message="tns:Check_ZhiNengOneINFOSoapIn"/>
+            <wsdl:output message="tns:Check_ZhiNengOneINFOSoapOut"/>
+        </wsdl:operation>
+        <wsdl:operation name="Check_ZhiNengTwoINFO">
+            <wsdl:input message="tns:Check_ZhiNengTwoINFOSoapIn"/>
+            <wsdl:output message="tns:Check_ZhiNengTwoINFOSoapOut"/>
+        </wsdl:operation>
+        <wsdl:operation name="Add_Problem">
+            <wsdl:input message="tns:Add_ProblemSoapIn"/>
+            <wsdl:output message="tns:Add_ProblemSoapOut"/>
+        </wsdl:operation>
+        <wsdl:operation name="Add_Image">
+            <wsdl:input message="tns:Add_ImageSoapIn"/>
+            <wsdl:output message="tns:Add_ImageSoapOut"/>
+        </wsdl:operation>
+        <wsdl:operation name="Check_Problem">
+            <wsdl:input message="tns:Check_ProblemSoapIn"/>
+            <wsdl:output message="tns:Check_ProblemSoapOut"/>
+        </wsdl:operation>
+        <wsdl:operation name="Update_ProblemState">
+            <wsdl:input message="tns:Update_ProblemStateSoapIn"/>
+            <wsdl:output message="tns:Update_ProblemStateSoapOut"/>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="FGWebServerSoap" type="tns:FGWebServerSoap">
+        <soap:binding transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="HelloWorld">
+            <soap:operation soapAction="http://tempuri.org/HelloWorld" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="Get_Login">
+            <soap:operation soapAction="http://tempuri.org/Get_Login" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="Update_Password">
+            <soap:operation soapAction="http://tempuri.org/Update_Password" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="GetList">
+            <soap:operation soapAction="http://tempuri.org/GetList" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="Add_LoginUser">
+            <soap:operation soapAction="http://tempuri.org/Add_LoginUser" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="Check_ProjectBrief">
+            <soap:operation soapAction="http://tempuri.org/Check_ProjectBrief" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="Check_BRIEFINFO">
+            <soap:operation soapAction="http://tempuri.org/Check_BRIEFINFO" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="Check_DETAILSINFO">
+            <soap:operation soapAction="http://tempuri.org/Check_DETAILSINFO" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="Check_GUANLIJUINFO">
+            <soap:operation soapAction="http://tempuri.org/Check_GUANLIJUINFO" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="Check_ZhiNengOneINFO">
+            <soap:operation soapAction="http://tempuri.org/Check_ZhiNengOneINFO" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="Check_ZhiNengTwoINFO">
+            <soap:operation soapAction="http://tempuri.org/Check_ZhiNengTwoINFO" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="Add_Problem">
+            <soap:operation soapAction="http://tempuri.org/Add_Problem" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="Add_Image">
+            <soap:operation soapAction="http://tempuri.org/Add_Image" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="Check_Problem">
+            <soap:operation soapAction="http://tempuri.org/Check_Problem" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="Update_ProblemState">
+            <soap:operation soapAction="http://tempuri.org/Update_ProblemState" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:binding name="FGWebServerSoap12" type="tns:FGWebServerSoap">
+        <soap12:binding transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="HelloWorld">
+            <soap12:operation soapAction="http://tempuri.org/HelloWorld" style="document"/>
+            <wsdl:input>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap12:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="Get_Login">
+            <soap12:operation soapAction="http://tempuri.org/Get_Login" style="document"/>
+            <wsdl:input>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap12:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="Update_Password">
+            <soap12:operation soapAction="http://tempuri.org/Update_Password" style="document"/>
+            <wsdl:input>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap12:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="GetList">
+            <soap12:operation soapAction="http://tempuri.org/GetList" style="document"/>
+            <wsdl:input>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap12:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="Add_LoginUser">
+            <soap12:operation soapAction="http://tempuri.org/Add_LoginUser" style="document"/>
+            <wsdl:input>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap12:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="Check_ProjectBrief">
+            <soap12:operation soapAction="http://tempuri.org/Check_ProjectBrief" style="document"/>
+            <wsdl:input>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap12:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="Check_BRIEFINFO">
+            <soap12:operation soapAction="http://tempuri.org/Check_BRIEFINFO" style="document"/>
+            <wsdl:input>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap12:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="Check_DETAILSINFO">
+            <soap12:operation soapAction="http://tempuri.org/Check_DETAILSINFO" style="document"/>
+            <wsdl:input>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap12:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="Check_GUANLIJUINFO">
+            <soap12:operation soapAction="http://tempuri.org/Check_GUANLIJUINFO" style="document"/>
+            <wsdl:input>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap12:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="Check_ZhiNengOneINFO">
+            <soap12:operation soapAction="http://tempuri.org/Check_ZhiNengOneINFO" style="document"/>
+            <wsdl:input>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap12:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="Check_ZhiNengTwoINFO">
+            <soap12:operation soapAction="http://tempuri.org/Check_ZhiNengTwoINFO" style="document"/>
+            <wsdl:input>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap12:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="Add_Problem">
+            <soap12:operation soapAction="http://tempuri.org/Add_Problem" style="document"/>
+            <wsdl:input>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap12:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="Add_Image">
+            <soap12:operation soapAction="http://tempuri.org/Add_Image" style="document"/>
+            <wsdl:input>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap12:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="Check_Problem">
+            <soap12:operation soapAction="http://tempuri.org/Check_Problem" style="document"/>
+            <wsdl:input>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap12:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="Update_ProblemState">
+            <soap12:operation soapAction="http://tempuri.org/Update_ProblemState" style="document"/>
+            <wsdl:input>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap12:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="FGWebServer">
+        <wsdl:port name="FGWebServerSoap" binding="tns:FGWebServerSoap">
+            <soap:address location="http://beidoujieshou.sytxmap.com:6500/FGWebServer.asmx"/>
+        </wsdl:port>
+        <wsdl:port name="FGWebServerSoap12" binding="tns:FGWebServerSoap12">
+            <soap12:address location="http://beidoujieshou.sytxmap.com:6500/FGWebServer.asmx"/>
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>

@@ -33,32 +33,15 @@ static NetWorkManager* g_shareInstance = nil;
     
     
     NSString *methodName=URLString;//@"Get_Car_List";
-    SoapUtility *soaputility=[[SoapUtility alloc] initFromFile:@"BeiDouService"];
+    SoapUtility *soaputility=[[SoapUtility alloc] initFromFile:@"NDRCWebService"];
     NSString *postData=[soaputility BuildSoap12withMethodNameNoParam:methodName];
     if (parameters) {
         postData=[soaputility BuildSoap12withMethodName:methodName  withParas:dic];
     }
     SoapService *soaprequest=[[SoapService alloc] init];
-    soaprequest.PostUrl=[NSString stringWithFormat:@"%@:5963/GPSService.asmx",BeiDouServiceUrl];
+    soaprequest.PostUrl=[NSString stringWithFormat:@"%@:6500/FGWebServer.asmx",BeiDouServiceUrl];
     soaprequest.SoapAction=[soaputility GetSoapActionByMethodName:methodName SoapType:SOAP];
     
-    if ([NetWorkManager sharedInstance].isAppStoreNum&&[URLString isEqualToString:@"Get_CarNoPic_List"]) {
-        
-        
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.8 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            NSString *data = [NSString stringWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"beiDouList" ofType:@"txt"] encoding:NSUTF8StringEncoding error:nil];
-            
-            NSError *error;
-            
-            NSDictionary *dicMessage = [XMLReader dictionaryForXMLString:data error:&error];
-            
-            success(dicMessage);
-            
-        });
-        
-        return;
-        
-    }
     
     
     [soaprequest PostAsync:postData Success:^(NSString *response)
@@ -92,25 +75,27 @@ static NetWorkManager* g_shareInstance = nil;
 -(void)setUserInfoMessageWithDic:(NSDictionary *)dic{
 
     
-    if (!self.userInfoDic) {
-        self.userInfoDic=[NSMutableDictionary dictionary];
+    if (!self.userInfoModel) {
+        self.userInfoModel=[[UserInfoModel alloc] init];
     }
-    [self.userInfoDic setValue:dic[@"GROUPNAME"][@"text"] forKey:@"groupName"];
-    [self.userInfoDic setValue:dic[@"HaveIMG"][@"text"] forKey:@"haveIMG"];
-    [self.userInfoDic setValue:dic[@"IsAuthorizedLogin"][@"text"] forKey:@"isAuthorizedLogin"];
-    [self.userInfoDic setValue:dic[@"NAME"][@"text"] forKey:@"name"];
-    [self.userInfoDic setValue:dic[@"PERID"][@"text"] forKey:@"perId"];
-    [self.userInfoDic setValue:dic[@"Power"][@"text"] forKey:@"power"];
-    [self.userInfoDic setValue:dic[@"SEX"][@"text"] forKey:@"sex"];
-    [self.userInfoDic setValue:dic[@"TELNUMBER"][@"text"] forKey:@"tel"];
-    [self.userInfoDic setValue:dic[@"CARNUM"][@"text"] forKey:@"carNum"];
 
-    if ([[NetWorkManager sharedInstance].userInfoDic[@"power"] isEqualToString:@"0"]) {
+    NSDictionary *loginDic=dic[@"loginUserList"][@"LoginUser"];
+    self.userInfoModel.name=loginDic[@"Name"][@"text"];
+    self.userInfoModel.perID=loginDic[@"ID"][@"text"];
+    self.userInfoModel.Power=loginDic[@"Power"][@"text"];
+
+    if ([self.userInfoModel.Power isEqualToString:@"0"]) {
         self.powerStatus=Boss;
-    }else if ([[NetWorkManager sharedInstance].userInfoDic[@"power"] isEqualToString:@"2"]){
-        self.powerStatus=NormalUser;
+    }else if ([self.userInfoModel.Power isEqualToString:@"2"]){
+        self.powerStatus=QYUser;
+        self.userInfoModel.qyMessageModel=[[QYMessageModel alloc] init];
+        [self.userInfoModel.qyMessageModel setMessageWithDictionary:loginDic[@"BriefList"][@"BRIEF"]];
     }else{
-        self.powerStatus=Driver;
+        self.powerStatus=Administrator;
+        NSDictionary *gljDic=loginDic[@"GuanlijuList"][@"GUANLIJU"];
+        self.userInfoModel.gljID=gljDic[@"ID"][@"text"];
+        self.userInfoModel.gljName=gljDic[@"GLJNAME"][@"text"];
+        
     }
     
     

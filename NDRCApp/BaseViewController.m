@@ -7,7 +7,7 @@
 //
 
 #import "BaseViewController.h"
-#import "InquiriesViewController.h"
+
 @interface BaseViewController ()
 
 @end
@@ -37,6 +37,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
      self.view.backgroundColor=[UIColor whiteColor];
+    
+       
     // Do any additional setup after loading the view.
 }
 - (void) initTitleBar:(NSString *) title{
@@ -80,14 +82,14 @@
 - (void) initMainTitleBar:(NSString *) title{
     int screenWidth = [UIScreen mainScreen].bounds.size.width;
     UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, screenWidth, 64)];
-    [headerView setBackgroundColor:[UIColor whiteColor]];
+    [headerView setBackgroundColor:ColorWithAlpha(0xe93735, 1)];
     
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 20, screenWidth, 44)];
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(widthOn(100), 20, screenWidth-widthOn(100)*2, 44)];
     [label setText:title];
     [headerView addSubview:label];
-    [label setTextColor:[UIColor blackColor]];
+    [label setTextColor:[UIColor whiteColor]];
     label.textAlignment = NSTextAlignmentCenter;
-    label.font=[UIFont boldSystemFontOfSize:17];
+    label.font=[UIFont boldSystemFontOfSize:18];
     [self.view addSubview:headerView];
     
     
@@ -102,30 +104,26 @@
     image.frame=CGRectMake(widthOn(30), 34, 16, 16);
 //    image.image = [[UIImage imageNamed:@"backicon.png"] imageWithRenderingMode:(UIImageRenderingModeAlwaysTemplate)];
 //    [image setTintColor:appMainColor];
-    image.image=[UIImage imageNamed:@"MainBackIcon.png"];
+    image.image=[UIImage imageNamed:@"backicon.png"];
     [self.backBtn addSubview:image];
     
     
     
     self.menubtn = [[UIButton alloc] initWithFrame:CGRectMake(screenWidth -44, 20, 44, 44)];
-    [self.menubtn setImage:[UIImage imageNamed:@"历史记录icon.png"] forState:UIControlStateNormal];
-    [self.menubtn addTarget:self action:@selector(onClickOpenMenu) forControlEvents:UIControlEventTouchUpInside];
+    [self.menubtn setImage:[UIImage imageNamed:@"MenuIcon.png"] forState:UIControlStateNormal];
+    
     [headerView addSubview:self.menubtn];
     
-    UIView *lineView=[[UIView alloc] initWithFrame:CGRectMake(0, 63, k_ScreenWidth, 1)];
-    lineView.backgroundColor=appLineColor;
-    [headerView addSubview:lineView];
+    self.baseLineView=[[UIView alloc] initWithFrame:CGRectMake(0, 63, k_ScreenWidth, 1)];
+    self.baseLineView.backgroundColor=appLineColor;
+    [headerView addSubview:self.baseLineView];
     
     
     
 }
 
 
--(void)onClickOpenMenu{
-    
-    InquiriesViewController *mv=[[InquiriesViewController alloc] init];
-    [self.navigationController pushViewController:mv animated:YES];
-}
+
 
 -(void)backAction{
     
