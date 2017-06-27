@@ -8,10 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
-@interface QYQuestionListView : UIView
-@property(nonatomic,strong)UIButton *personBtn;
-@property(nonatomic,strong)UIButton *typeBtn;
-@property(nonatomic,strong)UIButton *timeBtn;
+@protocol QYQuestionListViewDelegate <NSObject>
 
+-(void)OnClickTypeBtnWithIndex:(NSInteger)indexType;
+
+@end
+
+@interface QYQuestionListView : UIView
+
+@property(nonatomic,assign)id<QYQuestionListViewDelegate> delegate;
 @property(nonatomic,strong)UITableView *tableView;
 @end

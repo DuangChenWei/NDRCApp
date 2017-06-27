@@ -53,6 +53,13 @@
    
     return cell;
 }
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    if (self.delegate) {
+        [self.delegate ThirdViewOnSelectCellWithTitle:@"问问问问问题"];
+    }
+}
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     
     return widthOn(88);

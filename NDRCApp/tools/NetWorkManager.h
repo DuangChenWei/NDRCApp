@@ -20,7 +20,8 @@ typedef enum
     // Apple NetworkStatus Compatible Names.
     Boss     = 0,
     Administrator = 1,
-    QYUser = 2
+    QYAdmin = 2,
+    QYUser = 3
    
     
 } PowerStatus;

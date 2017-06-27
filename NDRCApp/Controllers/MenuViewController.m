@@ -118,9 +118,7 @@
     StatisticsController *mv=[[StatisticsController alloc] init];
     [self.navigationController pushViewController:mv animated:YES];
     
-//    QuestionListController *mv=[[QuestionListController alloc] init];
-////    QYQurstionListController *mv=[[QYQurstionListController alloc] init];
-//    [self.navigationController pushViewController:mv animated:YES];
+
 }
 
 - (void)didReceiveMemoryWarning {

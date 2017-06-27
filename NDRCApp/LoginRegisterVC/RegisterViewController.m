@@ -19,7 +19,7 @@
     
     
 }
-
+@property(nonatomic,strong)UITextField *CompanyIDTextField;
 @property(nonatomic,strong)UITextField *nameTextField;
 @property(nonatomic,strong)UITextField *telTextField;
 @property(nonatomic,strong)UITextField *passWordTextField;
@@ -77,13 +77,17 @@
     
     viewHeight=widthOn(90);
     CGFloat topY=widthOn(30);
-    self.nameTextField=[self creatTextfieldWithTitle:@"企业全称" placeHoder:@"请输入企业全称" viewY:topY];
-
-    self.telTextField=[self creatTextfieldWithTitle:@"手机号码" placeHoder:@"请输入手机号码" viewY:topY+viewHeight*1];
+    
+    self.CompanyIDTextField=[self creatTextfieldWithTitle:@"组织机构代码" placeHoder:@"请输入组织机构代码" viewY:topY];
+    
+    
+    self.nameTextField=[self creatTextfieldWithTitle:@"企业全称" placeHoder:@"请输入企业全称" viewY:topY+viewHeight*1];
+    self.nameTextField.leftViewMode=UITextFieldViewModeUnlessEditing;
+    self.telTextField=[self creatTextfieldWithTitle:@"手机号码" placeHoder:@"请输入手机号码" viewY:topY+viewHeight*2];
     self.telTextField.keyboardType=UIKeyboardTypeNumberPad;
-    self.passWordTextField=[self creatTextfieldWithTitle:@"输入密码" placeHoder:@"请输入密码" viewY:topY+viewHeight*2];
+    self.passWordTextField=[self creatTextfieldWithTitle:@"输入密码" placeHoder:@"请输入密码" viewY:topY+viewHeight*3];
     self.passWordTextField.secureTextEntry = YES;
-    self.surePassWordField=[self creatTextfieldWithTitle:@"确认密码" placeHoder:@"请再次输入密码" viewY:topY+viewHeight*3];
+    self.surePassWordField=[self creatTextfieldWithTitle:@"确认密码" placeHoder:@"请再次输入密码" viewY:topY+viewHeight*4];
     self.surePassWordField.secureTextEntry = YES;
     
 //    self.powerTextField=[self creatTextfieldWithTitle:@"所属权限" placeHoder:@"请输入权限" viewY:topY+viewHeight*4];
@@ -103,7 +107,7 @@
 //    groupBtn.sd_layout.spaceToSuperView(UIEdgeInsetsMake(0, 0, 0, 0));
 //    
 //    self.groupTextField.hidden=YES;
-    
+    self.CompanyIDTextField.delegate=self;
     self.nameTextField.delegate=self;
     self.telTextField.delegate=self;
     self.passWordTextField.delegate=self;
@@ -161,9 +165,9 @@
     textField.font=[UIFont systemFontOfSize:widthOn(34)];
     [self.backScroller addSubview:textField];
     textField.sd_layout.leftSpaceToView(self.backScroller, widthOn(50)).topSpaceToView(self.backScroller, viewY).rightSpaceToView(self.backScroller, widthOn(50)).heightIs(widthOn(80));
-    textField.leftViewMode=UITextFieldViewModeUnlessEditing;
+    textField.leftViewMode=UITextFieldViewModeAlways;
     UILabel *leftLabel=[[UILabel alloc] init];
-    leftLabel.frame=CGRectMake(0, 0, widthOn(180), widthOn(80));
+    leftLabel.frame=CGRectMake(0, 0, widthOn(250), widthOn(80));
     leftLabel.text=title;
     leftLabel.font=[UIFont systemFontOfSize:widthOn(34)];
     leftLabel.textColor=ColorWithAlpha(0x999999, 1);
@@ -259,17 +263,20 @@
 -(void)regisbtnAction{
 
      [self backKeyBoard];
-    
+    if ([self.CompanyIDTextField.text isEqualToString:@""]) {
+        [[NetWorkManager sharedInstance] showExceptionMessageWithString:@"请先写组织机构代码"];
+        return;
+    }
     if ([self.nameTextField.text isEqualToString:@""]) {
-        [[NetWorkManager sharedInstance] showExceptionMessageWithString:@"清填写企业名称"];
+        [[NetWorkManager sharedInstance] showExceptionMessageWithString:@"请填写企业名称"];
         return;
     }
     if ([self.telTextField.text isEqualToString:@""]) {
-        [[NetWorkManager sharedInstance] showExceptionMessageWithString:@"清填写手机号"];
+        [[NetWorkManager sharedInstance] showExceptionMessageWithString:@"请填写手机号"];
         return;
     }
     if ([self.passWordTextField.text isEqualToString:@""]) {
-       [[NetWorkManager sharedInstance] showExceptionMessageWithString:@"清填写密码"];
+       [[NetWorkManager sharedInstance] showExceptionMessageWithString:@"请填写密码"];
         return;
     }
     
@@ -445,7 +452,7 @@
 }
 -(void)backKeyBoard{
 
-    
+    [self.CompanyIDTextField resignFirstResponder];
     [self.nameTextField resignFirstResponder];
     [self.telTextField resignFirstResponder];
     [self.passWordTextField resignFirstResponder];

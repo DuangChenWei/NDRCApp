@@ -20,7 +20,7 @@
     [self initMainTitleBar:@"完善信息"];
     self.setPopGestureRecognizerOn=NO;
     self.menubtn.hidden=YES;
-//    self.backBtn.hidden=YES;
+    self.backBtn.hidden=YES;
     // Do any additional setup after loading the view.
     self.myView=[[QYMessageEditView alloc] initWithFrame:CGRectMake(0, appNavigationBarHeight, k_ScreenWidth, k_ScreenHeight-appNavigationBarHeight)];
     [self.myView.addItemBtn addTarget:self action:@selector(addItemAction) forControlEvents:UIControlEventTouchUpInside];
@@ -35,16 +35,17 @@
     mv.deleagte=self;
     [self.navigationController pushViewController:mv animated:YES];
 }
--(void)updateItemMessageWithModel:(QYPointModel *)model{
+-(BOOL)updateItemMessageWithModel:(QYPointModel *)model{
 
-    for (int i=1; i<=self.myView.itemsArray.count; i++) {
-        UILabel *lab=(UILabel *)[self.myView.itemView viewWithTag:100+i];
-        [lab removeFromSuperview];
+    for (QYPointModel *qymodel in self.myView.itemsArray) {
+        if ([qymodel.qyId isEqualToString:model.qyId]) {
+            return NO;
+        }
     }
     
+    [self.myView updateItemViewWithModel:model isDeleteType:NO];
     
-    [self.myView.itemsArray addObject:model];
-    [self.myView addItemView];
+    return YES;
     
 }
 - (void)didReceiveMemoryWarning {

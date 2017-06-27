@@ -8,6 +8,8 @@
 
 #import "QYMessageController.h"
 #import "QuestionListController.h"
+#import "myGeneralEditView.h"
+#import "QYItemQuestionListController.h"
 @interface QYMessageController ()<UIScrollViewDelegate>
 @property(nonatomic,strong)UIScrollView *backScroller;
 @end
@@ -21,7 +23,7 @@
      self.menubtn.hidden=YES;
     UIButton *rightBtn=[UIButton buttonWithType:UIButtonTypeSystem];
     [rightBtn setTitle:@"问题" forState:UIControlStateNormal];
-    [rightBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [rightBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [rightBtn .titleLabel setFont:[UIFont systemFontOfSize:widthOn(34)]];
     [rightBtn addTarget:self action:@selector(pushToQuestionsVC) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:rightBtn];
@@ -36,8 +38,9 @@
 -(void)pushToQuestionsVC{
 
     NSLog(@"点击了问题");
-    QuestionListController *qv=[[QuestionListController alloc] init];
-    [self.navigationController pushViewController:qv animated:YES];
+    QYItemQuestionListController *mv=[[QYItemQuestionListController alloc] init];
+    [self.navigationController pushViewController:mv animated:YES];
+
 }
 -(void)addAllViews{
 
@@ -49,10 +52,14 @@
     
     CGFloat leftSpace=widthOn(35);
     
-    UIView *qyIDlabel=[self creatLabelWithTitle:self.model.qyId name:@"企业组织机构代码"];
+
+    UIView *qyIDlabel=[[myGeneralEditView alloc] initWithTextFieldText:self.model.qyId leftViewWidth:widthOn(300) couldEdit:NO placeHoder:@"" leftText:@"企业组织机构代码"];
+    [self.backScroller addSubview:qyIDlabel];
+    
     qyIDlabel.sd_layout.leftSpaceToView(self.backScroller, leftSpace).topSpaceToView(self.backScroller, leftSpace).rightSpaceToView(self.backScroller, leftSpace).heightIs(widthOn(90));
     
-    UIView *qyContactLabel=[self creatLabelWithTitle:self.model.qyContact name:@"联系人信息"];
+    UIView *qyContactLabel=[[myGeneralEditView alloc] initWithTextFieldText:self.model.qyContact leftViewWidth:widthOn(200) couldEdit:NO placeHoder:@"" leftText:@"联系人信息"];
+    [self.backScroller addSubview:qyContactLabel];
     qyContactLabel.sd_layout.leftEqualToView(qyIDlabel).rightEqualToView(qyIDlabel).topSpaceToView(qyIDlabel, leftSpace).heightRatioToView(qyIDlabel, 1);
     
     UIView *qyNameView=[self creatLongMessageViewWithMessage:self.model.qyName name:@"项目名称"];
@@ -75,67 +82,12 @@
     
 }
 
--(UIView *)creatLabelWithTitle:(NSString *) qtitle name:(NSString *)name{
 
-    UIView *viewQ=[[UIView alloc] init];
-    viewQ.layer.borderColor=appDarkLineColor.CGColor;
-    viewQ.layer.borderWidth=1;
-    viewQ.backgroundColor=[UIColor whiteColor];
-    [self.backScroller addSubview:viewQ];
-    viewQ.sd_cornerRadius=@6.2;
-    
-    UILabel *leftLabel=[[UILabel alloc] init];
-    leftLabel.text=name;
-    leftLabel.font=[UIFont systemFontOfSize:widthOn(34)];
-    leftLabel.textColor=[UIColor darkGrayColor];
-    [viewQ addSubview:leftLabel];
-    leftLabel.sd_layout.spaceToSuperView(UIEdgeInsetsMake(0, widthOn(20), 0, 0));
-    
-    UILabel *rightLabel=[[UILabel alloc] init];
-    rightLabel.text=qtitle;
-    rightLabel.font=leftLabel.font;
-    [viewQ addSubview:rightLabel];
-    rightLabel.textAlignment=NSTextAlignmentRight;
-    rightLabel.sd_layout.spaceToSuperView(UIEdgeInsetsMake(0, widthOn(300), 0, widthOn(20)));
-    
-    
-    return viewQ;
-    
-}
 
 -(UIView *)creatLongMessageViewWithMessage:(NSString *)message name:(NSString *)name{
    
-    UIView *viewQ=[[UIView alloc] init];
-    
+    UIView *viewQ=[[myGeneralEditView alloc] initContentMessageWithContentText:message topText:name];
     [self.backScroller addSubview:viewQ];
-   
-    
-    UILabel *leftLabel=[[UILabel alloc] init];
-    leftLabel.text=name;
-    leftLabel.font=[UIFont systemFontOfSize:widthOn(34)];
-    leftLabel.textColor=[UIColor blackColor];
-    [viewQ addSubview:leftLabel];
-    leftLabel.sd_layout.leftSpaceToView(viewQ, widthOn(20)).topSpaceToView(viewQ, 0).rightSpaceToView(viewQ, 0).heightIs(widthOn(90));
-    [leftLabel updateLayout];
-    
-    UIView *backView=[[UIView alloc] init];
-    backView.layer.borderColor=appDarkLineColor.CGColor;
-    backView.layer.borderWidth=1;
-    backView.backgroundColor=[UIColor whiteColor];
-    [viewQ addSubview:backView];
-    backView.sd_layout.leftSpaceToView(viewQ, 0).topSpaceToView(leftLabel, 0).rightSpaceToView(viewQ, 0);
-    UILabel *rightLabel=[[UILabel alloc] init];
-    rightLabel.text=message;
-    rightLabel.font=leftLabel.font;
-    rightLabel.textColor=ColorWithAlpha(0x666666, 1);
-    [backView addSubview:rightLabel];
-    rightLabel.textAlignment=NSTextAlignmentLeft;
-    rightLabel.sd_layout.leftEqualToView(leftLabel).rightSpaceToView(backView,widthOn(20)).topSpaceToView(backView, widthOn(15)).autoHeightRatio(0);
-    backView.sd_cornerRadius=@6.2;
-    [backView setupAutoHeightWithBottomView:rightLabel bottomMargin:widthOn(15)];
-    
-    [viewQ setupAutoHeightWithBottomView:backView bottomMargin:0];
-    
     return viewQ;
 
     

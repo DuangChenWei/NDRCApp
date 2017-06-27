@@ -10,9 +10,13 @@
 #import "statisticesFirstView.h"
 #import "statisticesSecondView.h"
 #import "statisticesThirdView.h"
+
+
+
 @interface StatisticsMainView : UIView
 @property(nonatomic,strong)UIScrollView *backScroller;
 @property(nonatomic,strong)statisticesFirstView *firstView;
 @property(nonatomic,strong)statisticesSecondView *secondView;
 @property(nonatomic,strong)statisticesThirdView *thirdView;
+
 @end

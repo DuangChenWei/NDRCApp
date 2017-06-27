@@ -7,7 +7,8 @@
 //
 
 #import "BaseViewController.h"
-
+#import "JHChartHeader.h"
 @interface QuestionTJController : BaseViewController
-
+@property(nonatomic,strong)JHColumnChartTJ *topColumn;
+@property(nonatomic,strong)JHColumnChartTJ *centerColumn;
 @end

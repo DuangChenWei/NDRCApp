@@ -28,13 +28,13 @@
         self.qyContactLabel=[[UILabel alloc] init];
         self.qyContactLabel.font=[UIFont systemFontOfSize:widthOn(28)];
         self.qyContactLabel.textColor=self.qyNameLabel.textColor;
-        [self.contentView addSubview:self.qyContactLabel];
+//        [self.contentView addSubview:self.qyContactLabel];
         
         
         self.timeLabel=[[UILabel alloc] init];
         self.timeLabel.textColor=ColorWithAlpha(0x999999, 1);
         self.timeLabel.font=self.qyContactLabel.font;
-        self.timeLabel.textAlignment=NSTextAlignmentRight;
+        self.timeLabel.textAlignment=NSTextAlignmentLeft;
         [self.contentView addSubview:self.timeLabel];
         
         
@@ -44,8 +44,8 @@
         
         self.qyNameLabel.sd_layout.leftSpaceToView(self.contentView, widthOn(34)).topSpaceToView(self.contentView, widthOn(10)).widthIs(widthOn(550)).heightIs(widthOn(80));
         self.questionTypeLabel.sd_layout.rightSpaceToView(self.contentView, widthOn(34)).topEqualToView(self.qyNameLabel).heightRatioToView(self.qyNameLabel, 1).leftSpaceToView(self.qyNameLabel, 10);
-        self.qyContactLabel.sd_layout.leftEqualToView(self.qyNameLabel).bottomSpaceToView(self.contentView, widthOn(10)).widthIs(widthOn(300)).heightRatioToView(self.qyNameLabel, 1);
-        self.timeLabel.sd_layout.rightEqualToView(self.questionTypeLabel).bottomEqualToView(self.qyContactLabel).leftSpaceToView(self.qyContactLabel, 10).heightRatioToView(self.qyContactLabel, 1);
+//        self.qyContactLabel.sd_layout.leftEqualToView(self.qyNameLabel).bottomSpaceToView(self.contentView, widthOn(10)).widthIs(widthOn(300)).heightRatioToView(self.qyNameLabel, 1);
+        self.timeLabel.sd_layout.leftEqualToView(self.qyNameLabel).bottomSpaceToView(self.contentView, widthOn(10)).widthIs(widthOn(450)).heightRatioToView(self.qyNameLabel, 1);
         
         lineView.sd_layout.leftEqualToView(self.qyNameLabel).rightEqualToView(self.questionTypeLabel).bottomSpaceToView(self.contentView,1).heightIs(1);
         

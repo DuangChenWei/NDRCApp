@@ -83,33 +83,35 @@
         self.dataArray=[NSMutableArray array];
     }
     
-    [[ProgressHud shareHud] startLoadingWithShowView:self.view text:@""];
+    BOOL needRefresh=NO;
+    
+    NSDictionary *response=[[NSUserDefaults standardUserDefaults] objectForKey:@"Check_BRIEFINFO"];
+    if (response[@"BRIEF"]) {
+        [self updateViewWithID:response];
+        needRefresh=NO;
+    }else{
+   
+        [[ProgressHud shareHud] startLoadingWithShowView:self.view text:@""];
+        needRefresh=YES;
+        
+    }
+    
+    
     [[NetWorkManager sharedInstance] GetDictionaryMethodWithUrl:@"Check_BRIEFINFO" parameters:nil success:^(id response) {
         [[ProgressHud shareHud] stopLoading];
         //            NSLog(@"--%@",response[@"BRIEF"]);
-        id resPon=response[@"BRIEF"];
-        if ([resPon isKindOfClass:[NSArray class]]) {
-            
-            for (NSDictionary *dic in resPon) {
-                
-                QYPointModel *model=[[QYPointModel alloc] init];
-                model.qyName=[NSString stringWithFormat:@"%@",dic[@"PRONAME"][@"text"]];
-                model.qyId=[NSString stringWithFormat:@"%@",dic[@"ID"][@"text"]];
-                [self.dataArray addObject:model];
-            }
-            
-        }else if ([resPon isKindOfClass:[NSMutableDictionary class]]){
-            
-            QYPointModel *model=[[QYPointModel alloc] init];
-            model.qyName=[NSString stringWithFormat:@"%@",resPon[@"PRONAME"][@"text"]];
-            model.qyId=[NSString stringWithFormat:@"%@",resPon[@"ID"][@"text"]];
-            [self.dataArray addObject:model];
-            
-        }else{
-            
+
+        if (needRefresh) {
+            [self updateViewWithID:response];
         }
         
-        [self.tableView reloadData];
+        
+        NSUserDefaults *myUserdefault=[NSUserDefaults standardUserDefaults];
+        [myUserdefault setObject:response forKey:@"Check_BRIEFINFO"];
+        [myUserdefault synchronize];
+        
+        
+      
         
     } failure:^(NSError *error) {
         [[ProgressHud shareHud] stopLoading];
@@ -117,7 +119,34 @@
     }];
 
 }
+-(void)updateViewWithID:(NSDictionary *)response{
 
+    id resPon=response[@"BRIEF"];
+    if ([resPon isKindOfClass:[NSArray class]]) {
+        
+        for (NSDictionary *dic in resPon) {
+            
+            QYPointModel *model=[[QYPointModel alloc] init];
+            model.qyName=[NSString stringWithFormat:@"%@",dic[@"PRONAME"][@"text"]];
+            model.qyId=[NSString stringWithFormat:@"%@",dic[@"ID"][@"text"]];
+            [self.dataArray addObject:model];
+        }
+        
+    }else if ([resPon isKindOfClass:[NSMutableDictionary class]]){
+        
+        
+        QYPointModel *model=[[QYPointModel alloc] init];
+        model.qyName=[NSString stringWithFormat:@"%@",resPon[@"PRONAME"][@"text"]];
+        model.qyId=[NSString stringWithFormat:@"%@",resPon[@"ID"][@"text"]];
+        [self.dataArray addObject:model];
+        
+    }else{
+        
+    }
+  
+    [self.tableView reloadData];
+    
+}
 -(void)textFieldChange:(UITextField *)textField{
     
     
@@ -196,7 +225,10 @@
     }
     NSLog(@"%@",model.qyName);
     if (self.deleagte) {
-        [self.deleagte updateItemMessageWithModel:model];
+        if (![self.deleagte updateItemMessageWithModel:model]) {
+            [[NetWorkManager sharedInstance] showExceptionMessageWithString:@"该项目已经存在，请添加其他项目"];
+            return;
+        }
     }
     [self.navigationController popViewControllerAnimated:YES];
 }

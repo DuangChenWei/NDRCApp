@@ -16,6 +16,7 @@
 #import "QYPointModel.h"
 #import "QuestionListController.h"
 #import "ChangePasswordController.h"
+#import "QYItemQuestionListController.h"
 @interface MainViewController ()<AGSMapViewLayerDelegate,AGSQueryTaskDelegate,AGSMapViewTouchDelegate,AGSQueryTaskDelegate,QYSearchViewDelegate>
 {
     
@@ -61,7 +62,9 @@
     // Do any additional setup after loading the view.
     self.setPopGestureRecognizerOn=NO;
     [self initMainTitleBar:@"问题分布"];
-   
+    if ([NetWorkManager sharedInstance].powerStatus==Administrator) {
+        self.backBtn.hidden=YES;
+    }
     [self.menubtn addTarget:self action:@selector(onClickOpenMenu) forControlEvents:UIControlEventTouchUpInside];
 
     self.mapArray=[NSMutableArray array];
@@ -85,14 +88,19 @@
    
 }
 -(void)onClickOpenMenu{
-    NSDictionary *dict1 = @{@"imageName" : @"",
-                            @"itemName" : @"问题汇总"
-                            };
-    NSDictionary *dict2 = @{@"imageName" : @"",
-                            @"itemName" : @"修改密码"
-                            };
     
-    NSArray *dataArray = @[dict1,dict2];
+    NSArray *nameArr=@[@"问题汇总",@"企业列表",@"企业评价",@"修改密码"];
+    NSMutableArray *arrValue=[NSMutableArray array];
+    for (NSString *str in nameArr) {
+        NSDictionary *dict1 = @{@"imageName" : @"",
+                                @"itemName" : str
+                                };
+        [arrValue addObject:dict1];
+    }
+    
+    
+    
+    NSArray *dataArray =[NSArray arrayWithArray:arrValue];
     [CommonMenuView updateMenuItemsWith:dataArray];
 
     [self popMenu:CGPointMake(self.navigationController.view.width - 20, 50)];
@@ -111,11 +119,12 @@
         isSelectSearchMenu=NO;
     }else{
         
-        if (tag==1) {
-            QuestionListController *qv=[[QuestionListController alloc] init];
-            
+        if (tag==2) {
+           
+            QYItemQuestionListController *qv=[[QYItemQuestionListController alloc] init];
             [self.navigationController pushViewController:qv animated:YES];
-        }else{
+            
+        }else if(tag==4){
             ChangePasswordController *qv=[[ChangePasswordController alloc] init];
             
             [self.navigationController pushViewController:qv animated:YES];

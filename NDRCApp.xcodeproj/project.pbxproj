@@ -19,6 +19,11 @@
 		7D0C9F561EE6A191007D6769 /* 问题统计icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D0C9F4A1EE6A191007D6769 /* 问题统计icon.png */; };
 		7D0C9F571EE6A191007D6769 /* 问题统计icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D0C9F4B1EE6A191007D6769 /* 问题统计icon@2x.png */; };
 		7D0C9F581EE6A191007D6769 /* 问题统计icon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D0C9F4C1EE6A191007D6769 /* 问题统计icon@3x.png */; };
+		7D2787641EF366E5008345EF /* myGeneralEditView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D2787631EF366E5008345EF /* myGeneralEditView.m */; };
+		7D2787671EF3867D008345EF /* ChooseImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D2787661EF3867D008345EF /* ChooseImageView.m */; };
+		7D27876A1EF3B8A2008345EF /* QYItemController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D2787691EF3B8A2008345EF /* QYItemController.m */; };
+		7D27876D1EF3C5EB008345EF /* ItemsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D27876C1EF3C5EB008345EF /* ItemsCell.m */; };
+		7D2787701EF3D4E5008345EF /* AddItemController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D27876F1EF3D4E5008345EF /* AddItemController.m */; };
 		7D27C1AB1EE1087400634151 /* QuestionListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D27C1AA1EE1087400634151 /* QuestionListModel.m */; };
 		7D27C1CC1EE1165F00634151 /* MKAnnotationView+WebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D27C1AE1EE1165F00634151 /* MKAnnotationView+WebCache.m */; };
 		7D27C1CD1EE1165F00634151 /* NSData+ImageContentType.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D27C1B01EE1165F00634151 /* NSData+ImageContentType.m */; };
@@ -59,6 +64,22 @@
 		7D2CB33D1ECD90AA00F5C35D /* xiaLaDark.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D2CB33A1ECD90AA00F5C35D /* xiaLaDark.png */; };
 		7D2CB33E1ECD90AA00F5C35D /* xiaLaDark@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D2CB33B1ECD90AA00F5C35D /* xiaLaDark@2x.png */; };
 		7D2CB33F1ECD90AA00F5C35D /* xiaLaDark@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D2CB33C1ECD90AA00F5C35D /* xiaLaDark@3x.png */; };
+		7D2E00A61F01036700ADC3BB /* QYItemQuestionListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D2E00A51F01036700ADC3BB /* QYItemQuestionListController.m */; };
+		7D2E00A91F01096500ADC3BB /* QYItemQuestionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D2E00A81F01096500ADC3BB /* QYItemQuestionCell.m */; };
+		7D3020101EEF7E4D00EC36E1 /* itemDeleteIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D30200D1EEF7E4D00EC36E1 /* itemDeleteIcon.png */; };
+		7D3020111EEF7E4D00EC36E1 /* itemDeleteIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D30200E1EEF7E4D00EC36E1 /* itemDeleteIcon@2x.png */; };
+		7D3020121EEF7E4D00EC36E1 /* itemDeleteIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D30200F1EEF7E4D00EC36E1 /* itemDeleteIcon@3x.png */; };
+		7D30267F1EF0CA0200B3DC5F /* 驳回.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D3026761EF0CA0200B3DC5F /* 驳回.png */; };
+		7D3026801EF0CA0200B3DC5F /* 驳回@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D3026771EF0CA0200B3DC5F /* 驳回@2x.png */; };
+		7D3026811EF0CA0200B3DC5F /* 驳回@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D3026781EF0CA0200B3DC5F /* 驳回@3x.png */; };
+		7D3026821EF0CA0200B3DC5F /* 处理.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D3026791EF0CA0200B3DC5F /* 处理.png */; };
+		7D3026831EF0CA0200B3DC5F /* 处理@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D30267A1EF0CA0200B3DC5F /* 处理@2x.png */; };
+		7D3026841EF0CA0200B3DC5F /* 处理@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D30267B1EF0CA0200B3DC5F /* 处理@3x.png */; };
+		7D3026851EF0CA0200B3DC5F /* 响应.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D30267C1EF0CA0200B3DC5F /* 响应.png */; };
+		7D3026861EF0CA0200B3DC5F /* 响应@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D30267D1EF0CA0200B3DC5F /* 响应@2x.png */; };
+		7D3026871EF0CA0200B3DC5F /* 响应@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D30267E1EF0CA0200B3DC5F /* 响应@3x.png */; };
+		7D30268A1EF0CCA000B3DC5F /* QuestionRespondController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D3026891EF0CCA000B3DC5F /* QuestionRespondController.m */; };
+		7D30268D1EF0CD1B00B3DC5F /* QuestionRespondView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D30268C1EF0CD1B00B3DC5F /* QuestionRespondView.m */; };
 		7D31428D1EE79390004E41E3 /* TodayMessageController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D31428C1EE79390004E41E3 /* TodayMessageController.m */; };
 		7D3142901EE79A0B004E41E3 /* DynamicsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D31428F1EE79A0B004E41E3 /* DynamicsCell.m */; };
 		7D3142931EE7D10A004E41E3 /* JHRingChart.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D3142921EE7D10A004E41E3 /* JHRingChart.m */; };
@@ -118,6 +139,7 @@
 		7D3F98AE1ED401B2003B64EE /* Photo-camera.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D3F98AB1ED401B2003B64EE /* Photo-camera.png */; };
 		7D3F98AF1ED401B2003B64EE /* Photo-camera@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D3F98AC1ED401B2003B64EE /* Photo-camera@2x.png */; };
 		7D3F98B01ED401B2003B64EE /* Photo-camera@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D3F98AD1ED401B2003B64EE /* Photo-camera@3x.png */; };
+		7D40709B1F01F0450045AAEE /* QYEvaluateListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D40709A1F01F0450045AAEE /* QYEvaluateListController.m */; };
 		7D4546E51EEE1D1000624A00 /* statisticesSecondView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D4546E41EEE1D1000624A00 /* statisticesSecondView.m */; };
 		7D4546E81EEE1FFB00624A00 /* QuestionTJThirdCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D4546E71EEE1FFB00624A00 /* QuestionTJThirdCell.m */; };
 		7D4546EB1EEE20E600624A00 /* statisticesThirdView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D4546EA1EEE20E600624A00 /* statisticesThirdView.m */; };
@@ -238,6 +260,16 @@
 		7D0C9F4A1EE6A191007D6769 /* 问题统计icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "问题统计icon.png"; sourceTree = "<group>"; };
 		7D0C9F4B1EE6A191007D6769 /* 问题统计icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "问题统计icon@2x.png"; sourceTree = "<group>"; };
 		7D0C9F4C1EE6A191007D6769 /* 问题统计icon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "问题统计icon@3x.png"; sourceTree = "<group>"; };
+		7D2787621EF366E5008345EF /* myGeneralEditView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = myGeneralEditView.h; sourceTree = "<group>"; };
+		7D2787631EF366E5008345EF /* myGeneralEditView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = myGeneralEditView.m; sourceTree = "<group>"; };
+		7D2787651EF3867D008345EF /* ChooseImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChooseImageView.h; sourceTree = "<group>"; };
+		7D2787661EF3867D008345EF /* ChooseImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChooseImageView.m; sourceTree = "<group>"; };
+		7D2787681EF3B8A2008345EF /* QYItemController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYItemController.h; sourceTree = "<group>"; };
+		7D2787691EF3B8A2008345EF /* QYItemController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYItemController.m; sourceTree = "<group>"; };
+		7D27876B1EF3C5EB008345EF /* ItemsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ItemsCell.h; sourceTree = "<group>"; };
+		7D27876C1EF3C5EB008345EF /* ItemsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ItemsCell.m; sourceTree = "<group>"; };
+		7D27876E1EF3D4E5008345EF /* AddItemController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddItemController.h; sourceTree = "<group>"; };
+		7D27876F1EF3D4E5008345EF /* AddItemController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddItemController.m; sourceTree = "<group>"; };
 		7D27C1A91EE1087400634151 /* QuestionListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuestionListModel.h; sourceTree = "<group>"; };
 		7D27C1AA1EE1087400634151 /* QuestionListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuestionListModel.m; sourceTree = "<group>"; };
 		7D27C1AD1EE1165F00634151 /* MKAnnotationView+WebCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MKAnnotationView+WebCache.h"; sourceTree = "<group>"; };
@@ -299,6 +331,26 @@
 		7D2CB33A1ECD90AA00F5C35D /* xiaLaDark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = xiaLaDark.png; sourceTree = "<group>"; };
 		7D2CB33B1ECD90AA00F5C35D /* xiaLaDark@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "xiaLaDark@2x.png"; sourceTree = "<group>"; };
 		7D2CB33C1ECD90AA00F5C35D /* xiaLaDark@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "xiaLaDark@3x.png"; sourceTree = "<group>"; };
+		7D2E00A41F01036700ADC3BB /* QYItemQuestionListController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYItemQuestionListController.h; sourceTree = "<group>"; };
+		7D2E00A51F01036700ADC3BB /* QYItemQuestionListController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYItemQuestionListController.m; sourceTree = "<group>"; };
+		7D2E00A71F01096500ADC3BB /* QYItemQuestionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYItemQuestionCell.h; sourceTree = "<group>"; };
+		7D2E00A81F01096500ADC3BB /* QYItemQuestionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYItemQuestionCell.m; sourceTree = "<group>"; };
+		7D30200D1EEF7E4D00EC36E1 /* itemDeleteIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = itemDeleteIcon.png; sourceTree = "<group>"; };
+		7D30200E1EEF7E4D00EC36E1 /* itemDeleteIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "itemDeleteIcon@2x.png"; sourceTree = "<group>"; };
+		7D30200F1EEF7E4D00EC36E1 /* itemDeleteIcon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "itemDeleteIcon@3x.png"; sourceTree = "<group>"; };
+		7D3026761EF0CA0200B3DC5F /* 驳回.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "驳回.png"; sourceTree = "<group>"; };
+		7D3026771EF0CA0200B3DC5F /* 驳回@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "驳回@2x.png"; sourceTree = "<group>"; };
+		7D3026781EF0CA0200B3DC5F /* 驳回@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "驳回@3x.png"; sourceTree = "<group>"; };
+		7D3026791EF0CA0200B3DC5F /* 处理.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "处理.png"; sourceTree = "<group>"; };
+		7D30267A1EF0CA0200B3DC5F /* 处理@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "处理@2x.png"; sourceTree = "<group>"; };
+		7D30267B1EF0CA0200B3DC5F /* 处理@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "处理@3x.png"; sourceTree = "<group>"; };
+		7D30267C1EF0CA0200B3DC5F /* 响应.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "响应.png"; sourceTree = "<group>"; };
+		7D30267D1EF0CA0200B3DC5F /* 响应@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "响应@2x.png"; sourceTree = "<group>"; };
+		7D30267E1EF0CA0200B3DC5F /* 响应@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "响应@3x.png"; sourceTree = "<group>"; };
+		7D3026881EF0CCA000B3DC5F /* QuestionRespondController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuestionRespondController.h; sourceTree = "<group>"; };
+		7D3026891EF0CCA000B3DC5F /* QuestionRespondController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuestionRespondController.m; sourceTree = "<group>"; };
+		7D30268B1EF0CD1B00B3DC5F /* QuestionRespondView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuestionRespondView.h; sourceTree = "<group>"; };
+		7D30268C1EF0CD1B00B3DC5F /* QuestionRespondView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuestionRespondView.m; sourceTree = "<group>"; };
 		7D31428B1EE79390004E41E3 /* TodayMessageController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TodayMessageController.h; sourceTree = "<group>"; };
 		7D31428C1EE79390004E41E3 /* TodayMessageController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TodayMessageController.m; sourceTree = "<group>"; };
 		7D31428E1EE79A0B004E41E3 /* DynamicsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DynamicsCell.h; sourceTree = "<group>"; };
@@ -391,6 +443,8 @@
 		7D3F98AB1ED401B2003B64EE /* Photo-camera.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Photo-camera.png"; sourceTree = "<group>"; };
 		7D3F98AC1ED401B2003B64EE /* Photo-camera@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Photo-camera@2x.png"; sourceTree = "<group>"; };
 		7D3F98AD1ED401B2003B64EE /* Photo-camera@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Photo-camera@3x.png"; sourceTree = "<group>"; };
+		7D4070991F01F0450045AAEE /* QYEvaluateListController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYEvaluateListController.h; sourceTree = "<group>"; };
+		7D40709A1F01F0450045AAEE /* QYEvaluateListController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYEvaluateListController.m; sourceTree = "<group>"; };
 		7D4546E31EEE1D1000624A00 /* statisticesSecondView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = statisticesSecondView.h; sourceTree = "<group>"; };
 		7D4546E41EEE1D1000624A00 /* statisticesSecondView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = statisticesSecondView.m; sourceTree = "<group>"; };
 		7D4546E61EEE1FFB00624A00 /* QuestionTJThirdCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuestionTJThirdCell.h; sourceTree = "<group>"; };
@@ -591,6 +645,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7D27875E1EF361DA008345EF /* generalView */ = {
+			isa = PBXGroup;
+			children = (
+				7D2787621EF366E5008345EF /* myGeneralEditView.h */,
+				7D2787631EF366E5008345EF /* myGeneralEditView.m */,
+				7D2787651EF3867D008345EF /* ChooseImageView.h */,
+				7D2787661EF3867D008345EF /* ChooseImageView.m */,
+			);
+			path = generalView;
+			sourceTree = "<group>";
+		};
 		7D27C1A81EE1086100634151 /* model */ = {
 			isa = PBXGroup;
 			children = (
@@ -758,8 +823,14 @@
 				7D3CC2221ED2BFBD00F55447 /* QYQurstionListController.m */,
 				7D3CC22E1ED2C5DD00F55447 /* QuestionEditController.h */,
 				7D3CC22F1ED2C5DD00F55447 /* QuestionEditController.m */,
+				7D2787681EF3B8A2008345EF /* QYItemController.h */,
+				7D2787691EF3B8A2008345EF /* QYItemController.m */,
+				7D27876E1EF3D4E5008345EF /* AddItemController.h */,
+				7D27876F1EF3D4E5008345EF /* AddItemController.m */,
 				7D4546EC1EEE3E1500624A00 /* QYEditMessageController.h */,
 				7D4546ED1EEE3E1500624A00 /* QYEditMessageController.m */,
+				7D4070991F01F0450045AAEE /* QYEvaluateListController.h */,
+				7D40709A1F01F0450045AAEE /* QYEvaluateListController.m */,
 				7D4546F21EEE7DEA00624A00 /* ChooseItemsController.h */,
 				7D4546F31EEE7DEA00624A00 /* ChooseItemsController.m */,
 				7D27C1A81EE1086100634151 /* model */,
@@ -781,6 +852,8 @@
 				7D2A6C4E1EE8DA4B00807F08 /* TZTestCell.m */,
 				7D4546F51EEE885400624A00 /* ChooseItemCell.h */,
 				7D4546F61EEE885400624A00 /* ChooseItemCell.m */,
+				7D27876B1EF3C5EB008345EF /* ItemsCell.h */,
+				7D27876C1EF3C5EB008345EF /* ItemsCell.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -803,6 +876,18 @@
 		7D48AEF51EC16937008BFC2A /* iconImage */ = {
 			isa = PBXGroup;
 			children = (
+				7D3026761EF0CA0200B3DC5F /* 驳回.png */,
+				7D3026771EF0CA0200B3DC5F /* 驳回@2x.png */,
+				7D3026781EF0CA0200B3DC5F /* 驳回@3x.png */,
+				7D3026791EF0CA0200B3DC5F /* 处理.png */,
+				7D30267A1EF0CA0200B3DC5F /* 处理@2x.png */,
+				7D30267B1EF0CA0200B3DC5F /* 处理@3x.png */,
+				7D30267C1EF0CA0200B3DC5F /* 响应.png */,
+				7D30267D1EF0CA0200B3DC5F /* 响应@2x.png */,
+				7D30267E1EF0CA0200B3DC5F /* 响应@3x.png */,
+				7D30200D1EEF7E4D00EC36E1 /* itemDeleteIcon.png */,
+				7D30200E1EEF7E4D00EC36E1 /* itemDeleteIcon@2x.png */,
+				7D30200F1EEF7E4D00EC36E1 /* itemDeleteIcon@3x.png */,
 				7D2A6C571EE8FAD900807F08 /* 添加图片有背景.png */,
 				7D2A6C581EE8FAD900807F08 /* 添加图片有背景@2x.png */,
 				7D2A6C591EE8FAD900807F08 /* 添加图片有背景@3x.png */,
@@ -891,8 +976,12 @@
 			children = (
 				7D612BA71ED01C5B0034EF1E /* QuestionListController.h */,
 				7D612BA81ED01C5B0034EF1E /* QuestionListController.m */,
+				7D2E00A41F01036700ADC3BB /* QYItemQuestionListController.h */,
+				7D2E00A51F01036700ADC3BB /* QYItemQuestionListController.m */,
 				7D612BB11ED029200034EF1E /* QuestionMessageController.h */,
 				7D612BB21ED029200034EF1E /* QuestionMessageController.m */,
+				7D3026881EF0CCA000B3DC5F /* QuestionRespondController.h */,
+				7D3026891EF0CCA000B3DC5F /* QuestionRespondController.m */,
 				7D3F98A91ED3D99F003B64EE /* textIcon.png */,
 				7D612BAA1ED01C690034EF1E /* Views */,
 			);
@@ -904,8 +993,12 @@
 			children = (
 				7D612BAB1ED01C890034EF1E /* QuestionListView.h */,
 				7D612BAC1ED01C890034EF1E /* QuestionListView.m */,
+				7D30268B1EF0CD1B00B3DC5F /* QuestionRespondView.h */,
+				7D30268C1EF0CD1B00B3DC5F /* QuestionRespondView.m */,
 				7D612BAE1ED023580034EF1E /* QuestionListCell.h */,
 				7D612BAF1ED023580034EF1E /* QuestionListCell.m */,
+				7D2E00A71F01096500ADC3BB /* QYItemQuestionCell.h */,
+				7D2E00A81F01096500ADC3BB /* QYItemQuestionCell.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -945,6 +1038,7 @@
 				7DB920FA1EB18ABA009E3307 /* tools */,
 				7DB920F41EB18609009E3307 /* BaseViewController.h */,
 				7DB920F51EB18609009E3307 /* BaseViewController.m */,
+				7D27875E1EF361DA008345EF /* generalView */,
 				7DB920CA1EB1806C009E3307 /* Main.storyboard */,
 				7DB920CD1EB1806C009E3307 /* Assets.xcassets */,
 				7DB920CF1EB1806C009E3307 /* LaunchScreen.storyboard */,
@@ -1316,6 +1410,7 @@
 			files = (
 				7DB920D11EB1806C009E3307 /* LaunchScreen.storyboard in Resources */,
 				7D2CB3281ECD4FF900F5C35D /* MainLogo.png in Resources */,
+				7D3026811EF0CA0200B3DC5F /* 驳回@3x.png in Resources */,
 				7D0C9F4E1EE6A191007D6769 /* 今日动态icon@2x.png in Resources */,
 				7DB920CE1EB1806C009E3307 /* Assets.xcassets in Resources */,
 				7D2CB3371ECD8DFD00F5C35D /* sanjiaoDark.png in Resources */,
@@ -1327,7 +1422,9 @@
 				7D0C9F531EE6A191007D6769 /* 问题汇总icon.png in Resources */,
 				7D612B9D1ED00DEE0034EF1E /* WTBtnicon.png in Resources */,
 				7D0C9F4D1EE6A191007D6769 /* 今日动态icon.png in Resources */,
+				7D3026801EF0CA0200B3DC5F /* 驳回@2x.png in Resources */,
 				7D2A6C561EE8FAAA00807F08 /* deleteIcon@3x.png in Resources */,
+				7D3020121EEF7E4D00EC36E1 /* itemDeleteIcon@3x.png in Resources */,
 				7D612B8D1ED008880034EF1E /* mainbackImage@3x.png in Resources */,
 				7D2CB33D1ECD90AA00F5C35D /* xiaLaDark.png in Resources */,
 				7D612BA51ED015A00034EF1E /* endLine@3x.png in Resources */,
@@ -1344,8 +1441,11 @@
 				7D2A6C621EE9445200807F08 /* MenuIcon@3x.png in Resources */,
 				7D3142A01EE7EA22004E41E3 /* 1s广告.png in Resources */,
 				7D612B9F1ED00DEE0034EF1E /* WTBtnicon@3x.png in Resources */,
+				7D3026871EF0CA0200B3DC5F /* 响应@3x.png in Resources */,
 				7DC7D1FC1ECBFE74001E880F /* companyIcon_blue.png in Resources */,
 				7D0C9F501EE6A191007D6769 /* 问题分布icon.png in Resources */,
+				7D3026861EF0CA0200B3DC5F /* 响应@2x.png in Resources */,
+				7D3026821EF0CA0200B3DC5F /* 处理.png in Resources */,
 				7D0C9F571EE6A191007D6769 /* 问题统计icon@2x.png in Resources */,
 				7D612B8C1ED008880034EF1E /* mainbackImage@2x.png in Resources */,
 				7D48AF061EC1955E008BFC2A /* backicon@2x.png in Resources */,
@@ -1357,11 +1457,13 @@
 				7DC7D1FD1ECBFE74001E880F /* companyIcon_blue@2x.png in Resources */,
 				7D48AF051EC1955E008BFC2A /* backicon.png in Resources */,
 				7D2CB33E1ECD90AA00F5C35D /* xiaLaDark@2x.png in Resources */,
+				7D3026841EF0CA0200B3DC5F /* 处理@3x.png in Resources */,
 				7D2A6C611EE9445200807F08 /* MenuIcon@2x.png in Resources */,
 				7D2A6C541EE8FAAA00807F08 /* deleteIcon.png in Resources */,
 				7DC7D2051ECBFF41001E880F /* MainBackIcon.png in Resources */,
 				7DC7D2071ECBFF41001E880F /* MainBackIcon@3x.png in Resources */,
 				7D3CC2281ED2C0E000F55447 /* addQuestion@2x.png in Resources */,
+				7D3020101EEF7E4D00EC36E1 /* itemDeleteIcon.png in Resources */,
 				7D612B9B1ED00DEE0034EF1E /* QYBtnIcon@2x.png in Resources */,
 				7D0C9F4F1EE6A191007D6769 /* 今日动态icon@3x.png in Resources */,
 				7D612B9E1ED00DEE0034EF1E /* WTBtnicon@2x.png in Resources */,
@@ -1374,15 +1476,19 @@
 				7D0C9F541EE6A191007D6769 /* 问题汇总icon@2x.png in Resources */,
 				7DC7D1FE1ECBFE74001E880F /* companyIcon_blue@3x.png in Resources */,
 				7D0C9F521EE6A191007D6769 /* 问题分布icon@3x.png in Resources */,
+				7D3026831EF0CA0200B3DC5F /* 处理@2x.png in Resources */,
 				7D2CB3381ECD8DFD00F5C35D /* sanjiaoDark@2x.png in Resources */,
 				7D612BA41ED015A00034EF1E /* endLine@2x.png in Resources */,
 				7D2A6C5C1EE8FAD900807F08 /* 添加图片有背景@3x.png in Resources */,
 				7DB921521EB19028009E3307 /* NDRCWebService.xml in Resources */,
 				7D612B9A1ED00DEE0034EF1E /* QYBtnIcon.png in Resources */,
+				7D30267F1EF0CA0200B3DC5F /* 驳回.png in Resources */,
 				7DC7D2011ECBFE74001E880F /* companyIcon_red@3x.png in Resources */,
 				7D612B8B1ED008880034EF1E /* mainbackImage.png in Resources */,
 				7D612B9C1ED00DEE0034EF1E /* QYBtnIcon@3x.png in Resources */,
 				7D0C9F581EE6A191007D6769 /* 问题统计icon@3x.png in Resources */,
+				7D3026851EF0CA0200B3DC5F /* 响应.png in Resources */,
+				7D3020111EEF7E4D00EC36E1 /* itemDeleteIcon@2x.png in Resources */,
 				7D0C9F561EE6A191007D6769 /* 问题统计icon.png in Resources */,
 				7D3CC2291ED2C0E000F55447 /* addQuestion@3x.png in Resources */,
 				7D2CB3311ECD86DE00F5C35D /* searchBlue.png in Resources */,
@@ -1416,8 +1522,11 @@
 				7D48AEF41EC14CDD008BFC2A /* RegisterViewController.m in Sources */,
 				7DC7D2231ECC20B2001E880F /* CommonMenuView.m in Sources */,
 				7DB921531EB19028009E3307 /* Stack.m in Sources */,
+				7D30268D1EF0CD1B00B3DC5F /* QuestionRespondView.m in Sources */,
 				7D2CB32D1ECD833000F5C35D /* QYMainSearchView.m in Sources */,
+				7D2787671EF3867D008345EF /* ChooseImageView.m in Sources */,
 				7D51D7601EB2E700004FDD49 /* UIView+SDAutoLayout.m in Sources */,
+				7D2E00A61F01036700ADC3BB /* QYItemQuestionListController.m in Sources */,
 				7D3142C01EE7F9AC004E41E3 /* TZAssetCell.m in Sources */,
 				7D3142CD1EE7F9AC004E41E3 /* UIView+Layout.m in Sources */,
 				7D3BF8251EC2DF870005A720 /* JHColumnChart.m in Sources */,
@@ -1440,6 +1549,7 @@
 				7D3142901EE79A0B004E41E3 /* DynamicsCell.m in Sources */,
 				7D4546F41EEE7DEA00624A00 /* ChooseItemsController.m in Sources */,
 				7D27C1D11EE1165F00634151 /* SDWebImageDownloader.m in Sources */,
+				7D30268A1EF0CCA000B3DC5F /* QuestionRespondController.m in Sources */,
 				7D62F0EA1EEA6BBC0033EC16 /* QuestionTJController.m in Sources */,
 				7D3AD1391ECE81730076B925 /* QYMainSearchCell.m in Sources */,
 				7DB9214A1EB19028009E3307 /* DDXMLElementAdditions.m in Sources */,
@@ -1456,6 +1566,7 @@
 				7D51D75F1EB2E700004FDD49 /* UITableView+SDAutoTableViewCellHeight.m in Sources */,
 				7D3BF8261EC2DF870005A720 /* JHColumnChartTJ.m in Sources */,
 				7DB921471EB19028009E3307 /* HYBNetworking.m in Sources */,
+				7D2787701EF3D4E5008345EF /* AddItemController.m in Sources */,
 				7DB921551EB19028009E3307 /* XMLReader.m in Sources */,
 				7D2A6C501EE8DA4B00807F08 /* TZTestCell.m in Sources */,
 				7D4546E81EEE1FFB00624A00 /* QuestionTJThirdCell.m in Sources */,
@@ -1488,6 +1599,7 @@
 				7D27C1DA1EE1165F00634151 /* UIView+WebCacheOperation.m in Sources */,
 				7D27C1D61EE1165F00634151 /* UIImage+GIF.m in Sources */,
 				7DB921431EB19028009E3307 /* AFSecurityPolicy.m in Sources */,
+				7D2787641EF366E5008345EF /* myGeneralEditView.m in Sources */,
 				7D3142C31EE7F9AC004E41E3 /* TZImageCropManager.m in Sources */,
 				7DB920F91EB1861D009E3307 /* MainViewController.m in Sources */,
 				7D4546F71EEE885400624A00 /* ChooseItemCell.m in Sources */,
@@ -1497,18 +1609,22 @@
 				7D3BF8241EC2DF870005A720 /* JHChart.m in Sources */,
 				7D4546EE1EEE3E1500624A00 /* QYEditMessageController.m in Sources */,
 				7D62F0ED1EEA79BA0033EC16 /* QuestionTJFirstCell.m in Sources */,
+				7D40709B1F01F0450045AAEE /* QYEvaluateListController.m in Sources */,
 				7DC7D2261ECC20B2001E880F /* UIView+AdjustFrame.m in Sources */,
 				7D3142931EE7D10A004E41E3 /* JHRingChart.m in Sources */,
 				7D3142971EE7D1E8004E41E3 /* StatisticsController.m in Sources */,
 				7D3142C11EE7F9AC004E41E3 /* TZAssetModel.m in Sources */,
+				7D2E00A91F01096500ADC3BB /* QYItemQuestionCell.m in Sources */,
 				7DB9214C1EB19028009E3307 /* NSString+DDXML.m in Sources */,
 				7D27C1D31EE1165F00634151 /* SDWebImageManager.m in Sources */,
 				7DB921481EB19028009E3307 /* DDXMLDocument.m in Sources */,
 				7D27C1AB1EE1087400634151 /* QuestionListModel.m in Sources */,
 				7DB920C31EB1806C009E3307 /* main.m in Sources */,
 				7D3CC22D1ED2C21700F55447 /* QYQuestionListView.m in Sources */,
+				7D27876D1EF3C5EB008345EF /* ItemsCell.m in Sources */,
 				7DC7D22D1ECC3AD9001E880F /* ProgressHud.m in Sources */,
 				7D27C1D41EE1165F00634151 /* SDWebImagePrefetcher.m in Sources */,
+				7D27876A1EF3B8A2008345EF /* QYItemController.m in Sources */,
 				7D612B871ED0081B0034EF1E /* MenuViewController.m in Sources */,
 				7D27C1D81EE1165F00634151 /* UIImageView+HighlightedWebCache.m in Sources */,
 				7D612BA91ED01C5B0034EF1E /* QuestionListController.m in Sources */,

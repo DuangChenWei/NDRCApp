@@ -10,7 +10,7 @@
 #import "QYPointModel.h"
 @protocol ChooseItemDelegate <NSObject>
 
--(void)updateItemMessageWithModel:(QYPointModel *)model;
+-(BOOL)updateItemMessageWithModel:(QYPointModel *)model;
 
 @end
 

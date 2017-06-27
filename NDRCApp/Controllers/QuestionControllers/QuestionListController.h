@@ -9,5 +9,5 @@
 #import "BaseViewController.h"
 
 @interface QuestionListController : BaseViewController
-
+@property(nonatomic,copy)NSString *titleStr;
 @end

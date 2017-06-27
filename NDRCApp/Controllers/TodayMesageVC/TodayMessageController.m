@@ -8,6 +8,7 @@
 
 #import "TodayMessageController.h"
 #import "DynamicsCell.h"
+#import "QuestionListController.h"
 @interface TodayMessageController ()<UITableViewDelegate,UITableViewDataSource>
 @property(nonatomic,strong)UITableView *tableView;
 @property(nonatomic,strong)NSMutableArray *nameArray;
@@ -21,7 +22,7 @@
     [self initMainTitleBar:@"今日动态"];
     self.menubtn.hidden=YES;
     
-    self.nameArray=[NSMutableArray arrayWithObjects:@"今日已上报问题:",@"已累积待相应问题:",@"今日即将超时问题:",@"今日已解决问题:", nil];
+    self.nameArray=[NSMutableArray arrayWithObjects:@"今日已上报问题",@"已累积待相应问题",@"今日即将超时问题",@"今日已解决问题", nil];
     
     
     self.tableView=[[UITableView alloc] initWithFrame:CGRectMake(0, appNavigationBarHeight, k_ScreenWidth, k_ScreenHeight-appNavigationBarHeight) style:UITableViewStylePlain];
@@ -44,7 +45,7 @@
         cell=[[DynamicsCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell_id"];
     }
     
-    cell.titleLabel.text=self.nameArray[indexPath.row];
+    cell.titleLabel.text=[NSString stringWithFormat:@"%@:",self.nameArray[indexPath.row]];
     cell.contentLabel.text=@"16";
 
     return cell;
@@ -52,6 +53,12 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
+    
+    QuestionListController *mv=[[QuestionListController alloc] init];
+    mv.titleStr=self.nameArray[indexPath.row];
+    [self.navigationController pushViewController:mv animated:YES];
+    
+    
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
 

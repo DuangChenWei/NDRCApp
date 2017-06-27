@@ -13,10 +13,12 @@
 #import "QuestionEditController.h"
 #import "NetWorkManager.h"
 #import "QuestionListModel.h"
-@interface QYQurstionListController ()<UITableViewDelegate,UITableViewDataSource,QuestionEditControllerDelegate>
+#import "ChangePasswordController.h"
+#import "QYEvaluateListController.h"
+@interface QYQurstionListController ()<UITableViewDelegate,UITableViewDataSource,QuestionEditControllerDelegate,QYQuestionListViewDelegate>
 @property(nonatomic,strong)QYQuestionListView *myView;
 @property(nonatomic,strong)NSMutableArray *dataArray;
-@property(nonatomic,strong)NSMutableArray *ZRRArray;
+
 
 @property(nonatomic,strong)NSMutableArray *tempArray;
 
@@ -38,47 +40,43 @@
     } backViewTap:^{
         
     }];
-   
+    
 }
 -(void)viewDidDisappear:(BOOL)animated{
     
     [CommonMenuView clearMenu];
 }
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.setPopGestureRecognizerOn=YES;
     
     [self initMainTitleBar:@"企业问题汇总"];
-    self.backBtn.hidden=YES;
+    if ([NetWorkManager sharedInstance].powerStatus==QYAdmin || [NetWorkManager sharedInstance].powerStatus==QYUser ) {
+        self.backBtn.hidden=YES;
+        [self.menubtn addTarget:self action:@selector(showMenuAction) forControlEvents:UIControlEventTouchUpInside];
+    }else{
+        self.menubtn.hidden=YES;
+    }
+    
     self.baseLineView.hidden=YES;
-    [self.menubtn setImage:[UIImage imageNamed:@"addQuestion.png"] forState:UIControlStateNormal];
-    [self.menubtn addTarget:self action:@selector(pushEditMessageAction) forControlEvents:UIControlEventTouchUpInside];
+    
     
     self.myView=[[QYQuestionListView alloc] initWithFrame:CGRectMake(0, appNavigationBarHeight, k_ScreenWidth, k_ScreenHeight-appNavigationBarHeight)];
     self.myView.tableView.delegate=self;
     self.myView.tableView.dataSource=self;
-    [self.myView.personBtn addTarget:self action:@selector(onclickPersionAction) forControlEvents:UIControlEventTouchUpInside];
-    [self.myView.typeBtn addTarget:self action:@selector(onclickTypeAction) forControlEvents:UIControlEventTouchUpInside];
-   
+    self.myView.delegate=self;
     [self.view addSubview:self.myView];
     
-     [self getQuestionListMessage];
+//     [self getQuestionListMessage];
     
     
     // Do any additional setup after loading the view.
 }
 
--(void)refreshMessage{
 
-    [self getQuestionListMessage];
-}
--(void)pushEditMessageAction{
 
-    QuestionEditController *mv=[[QuestionEditController alloc] init];
-    mv.delegate=self;
-    [self.navigationController pushViewController:mv animated:YES];
-    
-}
+
 - (void)popMenu:(CGPoint)point{
     //    NSLog(@"点击了  展示");000
     [CommonMenuView showMenuAtPoint:point];
@@ -89,31 +87,57 @@
     
     [CommonMenuView hidden];
     
-    if (self.menuState==101) {
-        [self.myView.personBtn setTitle:str forState:UIControlStateNormal];
-        [self.myView.typeBtn setTitle:@"全部状态" forState:UIControlStateNormal];
+    if (tag==1) {
+        QuestionEditController *mv=[[QuestionEditController alloc] init];
+        mv.delegate=self;
+        [self.navigationController pushViewController:mv animated:YES];
+    }else if (tag==2){
         
-        [self changeMenuActionViewWithString:str searchType:@"ZRRName"];
+        QYEvaluateListController *mv=[[QYEvaluateListController alloc] init];
+        [self.navigationController pushViewController:mv animated:YES];
         
-    }else if (self.menuState==102){
-        [self.myView.personBtn setTitle:@"全部责任人" forState:UIControlStateNormal];
-        [self.myView.typeBtn setTitle:str forState:UIControlStateNormal];
-        
-        if (tag==1) {
-            [self.myView.typeBtn setTitle:@"全部状态" forState:UIControlStateNormal];
-        }
-        
-        [self changeMenuActionViewWithString:[NSString stringWithFormat:@"%ld",tag-2] searchType:@"state"];
-        
-        
-        
-    }else if (self.menuState==103) {
-        
+    }else if (tag==3){
+    
+        ChangePasswordController *mv=[[ChangePasswordController alloc] init];
+        [self.navigationController pushViewController:mv animated:YES];
         
     }
+}
+
+
+
+-(void)refreshMessage{
+
+    [self getQuestionListMessage];
+}
+-(void)showMenuAction{
 
     
+    NSArray *nameArr=@[@"上报问题",@"待评价问题",@"修改密码"];
+    NSMutableArray *arrValue=[NSMutableArray array];
+    for (NSString *str in nameArr) {
+        NSDictionary *dict1 = @{@"imageName" : @"",
+                                @"itemName" : str
+                                };
+        [arrValue addObject:dict1];
+    }
+    
+    
+    
+    NSArray *dataArray =[NSArray arrayWithArray:arrValue];
+    [CommonMenuView updateMenuItemsWith:dataArray];
+    
+    [self popMenu:CGPointMake(self.navigationController.view.width - 20, 50)];
+    
+    
+    
+    
 }
+-(void)OnClickTypeBtnWithIndex:(NSInteger)indexType{
+
+    NSLog(@"点击了按钮：%ld",indexType);
+}
+
 
 -(void)changeMenuActionViewWithString:(NSString *)str searchType:(NSString *)type{
     
@@ -143,38 +167,28 @@
     if (self.dataArray==nil) {
         self.dataArray=[NSMutableArray array];
     }
-    if (self.ZRRArray==nil) {
-        self.ZRRArray=[NSMutableArray array];
-    }
+
 
     
     [[ProgressHud shareHud] startLoadingWithShowView:self.view text:@""];
-    NSMutableDictionary *dic=[NSMutableDictionary dictionaryWithObject:[NetWorkManager sharedInstance].userInfoModel.qyMessageModel.qyId forKey:@"proID"];
+    NSMutableDictionary *dic=[NSMutableDictionary dictionary];//WithObject: forKey:@"proID"];
 
+    [dic setValue:[NetWorkManager sharedInstance].userInfoModel.qyMessageModel.qyId forKey:@"proID"];
     NSLog(@"+++++%@",dic);
     
     [[NetWorkManager sharedInstance] GetDictionaryMethodWithUrl:@"Check_Problem" parameters:dic success:^(id response) {
         NSLog(@"返回%@",response);
         [[ProgressHud shareHud] stopLoading];
         [self.dataArray removeAllObjects];
-        [self.ZRRArray removeAllObjects];
+      
         id respon=response[@"AddAndCheckProblem"];
         if ([respon isKindOfClass:[NSArray class]]) {
-            NSString *tempStr=@"";
+        
             for (NSDictionary *dic in respon) {
                 QuestionListModel *model=[[QuestionListModel alloc] init];
                 [model setMessageWithDic:dic];
                 [self.dataArray addObject:model];
-                NSMutableDictionary *dic=[NSMutableDictionary dictionary];
-                [dic setValue:model.ZRRName forKey:@"itemName"];
-                [dic setValue:@"" forKey:@"imageName"];
-                
-                if (![tempStr isEqualToString:model.ZRRName]&&![model.ZRRName isEqualToString:@""]) {
-                    [self.ZRRArray addObject:dic];
-                    tempStr=model.ZRRName;
-                }
-
-                
+  
             }
             
             
@@ -182,18 +196,11 @@
             QuestionListModel *model=[[QuestionListModel alloc] init];
             [model setMessageWithDic:respon];
             [self.dataArray addObject:model];
-            NSMutableDictionary *dic=[NSMutableDictionary dictionary];
-            [dic setValue:model.ZRRName forKey:@"itemName"];
-            [dic setValue:@"" forKey:@"imageName"];
-            
-            [self.ZRRArray addObject:dic];
+    
         }else{
         
         }
-        NSMutableDictionary *dic0=[NSMutableDictionary dictionary];
-        [dic0 setValue:@"全部责任人" forKey:@"itemName"];
-        [dic0 setValue:@"" forKey:@"imageName"];
-        [self.ZRRArray insertObject:dic0 atIndex:0];
+   
         [self.myView.tableView reloadData];
         
         
@@ -205,37 +212,11 @@
 }
 
 
--(void)onclickPersionAction{
-    
-     self.menuState=101;
-    
-    [CommonMenuView updateMenuItemsWith:self.ZRRArray];
-    
-    [self popMenu:CGPointMake(CGRectGetMidX(self.myView.personBtn.frame), CGRectGetMaxY(self.myView.personBtn.frame)-widthOn(30)+appNavigationBarHeight)];
-}
--(void)onclickTypeAction{
-    
-     self.menuState=102;
-    
-    NSDictionary *dict1 = @{@"imageName" : @"",
-                            @"itemName" : @"全部状态"
-                            };
-    NSDictionary *dict2 = @{@"imageName" : @"",
-                            @"itemName" : @"未处理"
-                            };
-    NSDictionary *dict3 = @{@"imageName" : @"",
-                            @"itemName" : @"已处理"
-                            };
-    NSDictionary *dict4 = @{@"imageName" : @"",
-                            @"itemName" : @"已驳回"
-                            };
-    
-    NSArray *dataArray = @[dict1,dict2,dict3,dict4];
-    [CommonMenuView updateMenuItemsWith:dataArray];
-    
-    [self popMenu:CGPointMake(CGRectGetMidX(self.myView.typeBtn.frame), CGRectGetMaxY(self.myView.typeBtn.frame)-widthOn(30)+appNavigationBarHeight)];
-}
+
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    
+    
+    return 10;
     
     if (self.tempArray.count!=0) {
         return self.tempArray.count;
@@ -248,26 +229,32 @@
     if (cell==nil) {
         cell=[[QuestionListCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell_id"];
     }
-    QuestionListModel *model=self.dataArray[indexPath.row];
-    if (self.tempArray.count!=0) {
-        
-        model=self.tempArray[indexPath.row];
-    }
-
-    cell.qyNameLabel.text=model.QYName;
-    cell.questionTypeLabel.text=model.state;
-    cell.qyContactLabel.text=model.TJRName;
-    cell.timeLabel.text=model.submitTime;
-    if ([model.state isEqualToString:@"2"]) {
-        cell.questionTypeLabel.textColor=ColorWithAlpha(0x3183fd, 1);
+//    QuestionListModel *model=self.dataArray[indexPath.row];
+//    if (self.tempArray.count!=0) {
+//        
+//        model=self.tempArray[indexPath.row];
+//    }
+//
+//    cell.qyNameLabel.text=model.QYName;
+//    cell.questionTypeLabel.text=model.state;
+//    cell.qyContactLabel.text=model.TJRName;
+//    cell.timeLabel.text=model.submitTime;
+//    if ([model.state isEqualToString:@"2"]) {
+//        cell.questionTypeLabel.textColor=ColorWithAlpha(0x3183fd, 1);
+//        cell.questionTypeLabel.text=@"已驳回";
+//    }else if ([model.state isEqualToString:@"1"]) {
+//        cell.questionTypeLabel.textColor=ColorWithAlpha(0x999999, 1);
+//        cell.questionTypeLabel.text=@"已处理";
+//    }else{
+//        cell.questionTypeLabel.textColor=[UIColor redColor];
+//        cell.questionTypeLabel.text=@"未处理";
+//    }
+    
+    
+        cell.qyNameLabel.text=@"沈阳沈阳";
         cell.questionTypeLabel.text=@"已驳回";
-    }else if ([model.state isEqualToString:@"1"]) {
-        cell.questionTypeLabel.textColor=ColorWithAlpha(0x999999, 1);
-        cell.questionTypeLabel.text=@"已处理";
-    }else{
-        cell.questionTypeLabel.textColor=[UIColor redColor];
-        cell.questionTypeLabel.text=@"未处理";
-    }
+        cell.qyContactLabel.text=@"李明子";
+        cell.timeLabel.text=@"2017.05.16 20:20:20";
     
     return cell;
     
@@ -277,11 +264,11 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     QuestionMessageController *mv=[[QuestionMessageController alloc] init];
-    mv.model=self.dataArray[indexPath.row];
-    if (self.tempArray.count!=0) {
-        
-        mv.model=self.tempArray[indexPath.row];
-    }
+//    mv.model=self.dataArray[indexPath.row];
+//    if (self.tempArray.count!=0) {
+//        
+//        mv.model=self.tempArray[indexPath.row];
+//    }
 
     [self.navigationController pushViewController:mv animated:YES];
 }

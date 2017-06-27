@@ -35,9 +35,24 @@
     self.qyNameTextfield=[self creatTextFieldWithName:@"名称" placrHoder:@"请输入企业名称"];
     self.qyNameTextfield.sd_layout.leftEqualToView(self.ZZJGTextField).rightEqualToView(self.ZZJGTextField).topSpaceToView(self.ZZJGTextField, verSpace).heightRatioToView(self.ZZJGTextField, 1);
     
-    self.itemView=[self creatItemsViewWithTitle:@"所属项目"];
+    itemTextField=[self creatTextFieldWithName:@"所属项目" placrHoder:@""];
+    itemTextField.sd_layout.leftEqualToView(self.ZZJGTextField).rightEqualToView(self.ZZJGTextField).topSpaceToView(self.qyNameTextfield, verSpace).heightRatioToView(self.ZZJGTextField, 1);
+    
+    UIView *temView=[[UIView alloc] init];
+    [itemTextField addSubview:temView];
+    temView.sd_layout.spaceToSuperView(UIEdgeInsetsMake(0, 0, 0, 0));
+    self.addItemBtn=[UIButton buttonWithType:0];
+    [self.addItemBtn setImage:[UIImage imageNamed:@"addQuestion.png"] forState:0];
+    
+    [itemTextField addSubview:self.addItemBtn];
+    self.addItemBtn.sd_layout.rightSpaceToView(itemTextField, 0).topSpaceToView(itemTextField, 0).bottomSpaceToView(itemTextField, 0).widthEqualToHeight();
+    
+
+    
+    
+    self.itemView=[self creatItemsViewWithTitle:@""];
     [self addItemView];
-    self.itemView.sd_layout.leftEqualToView(self.ZZJGTextField).rightEqualToView(self.ZZJGTextField).topSpaceToView(self.qyNameTextfield, verSpace).heightRatioToView(self.ZZJGTextField, 1);
+    self.itemView.sd_layout.leftEqualToView(self.ZZJGTextField).rightEqualToView(self.ZZJGTextField).topSpaceToView(itemTextField, 0).heightIs(0);
     
     
     self.qyAddressTextfield=[self creatTextFieldWithName:@"地址" placrHoder:@"请输入企业地址"];
@@ -79,7 +94,7 @@
     textField.font=[UIFont systemFontOfSize:widthOn(34)];
     textField.layer.borderColor=appDarkLineColor.CGColor;
     textField.layer.borderWidth=1;
-    textField.backgroundColor=[UIColor whiteColor];
+//    textField.backgroundColor=[UIColor whiteColor];
     textField.delegate=self;
     [self.backScroller addSubview:textField];
     textField.leftViewMode=UITextFieldViewModeAlways;
@@ -106,32 +121,15 @@
 
 -(UIView *)creatItemsViewWithTitle:(NSString *)title{
 
-    CGFloat spaceQ=widthOn(80);
+
     
     UIView *viewQ=[[UIView alloc] init];
     viewQ.layer.borderColor=appDarkLineColor.CGColor;
     viewQ.layer.borderWidth=1;
-    viewQ.backgroundColor=[UIColor whiteColor];
+//    viewQ.backgroundColor=[UIColor whiteColor];
     [self.backScroller addSubview:viewQ];
     viewQ.sd_cornerRadius=[NSNumber numberWithFloat:widthOn(10)];
     
-    UILabel *leftLabel=[[UILabel alloc] init];
-    leftLabel.text=title;
-    leftLabel.font=[UIFont systemFontOfSize:widthOn(34)];
-    leftLabel.textColor=[UIColor darkGrayColor];
-    [viewQ addSubview:leftLabel];
-    leftLabel.sd_layout.leftSpaceToView(viewQ, widthOn(10)).topSpaceToView(viewQ, 0).rightSpaceToView(viewQ, widthOn(10)).heightIs(spaceQ);
-    
-    UIButton *addBtn=[UIButton buttonWithType:0];
-    [addBtn setImage:[UIImage imageNamed:@"addQuestion.png"] forState:0];
-
-    [viewQ addSubview:addBtn];
-    addBtn.sd_layout.rightSpaceToView(viewQ, 0).topEqualToView(leftLabel).heightRatioToView(leftLabel, 1).widthEqualToHeight();
-  
-    self.addItemBtn=addBtn;
-    
-   
-
     
     return viewQ;
     
@@ -144,14 +142,59 @@
         itemLabel.text=[NSString stringWithFormat:@"0%d.%@",i,model.qyName];
         itemLabel.font=[UIFont systemFontOfSize:widthOn(28)];
         itemLabel.numberOfLines=2;
-        itemLabel.tag=100+i;
+    
         [self.itemView addSubview:itemLabel];
-        itemLabel.sd_layout.leftSpaceToView(self.itemView, widthOn(10)).topSpaceToView(self.itemView, widthOn(80)*i).rightSpaceToView(self.itemView, widthOn(10)).heightIs(widthOn(80));
-        [self.itemView setupAutoHeightWithBottomView:itemLabel bottomMargin:widthOn(0)];
+        itemLabel.sd_layout.leftSpaceToView(self.itemView, widthOn(10)).topSpaceToView(self.itemView, widthOn(80)*(i-1)).rightSpaceToView(self.itemView, widthOn(10)+widthOn(80)).heightIs(widthOn(80));
+        
+        UIButton *btn=[UIButton buttonWithType:0];
+        [btn setImage:[UIImage imageNamed:@"itemDeleteIcon.png"] forState:0];
+        [self.itemView addSubview:btn];
+        btn.tag=250+i;
+        [btn addTarget:self action:@selector(deleteItemAction:) forControlEvents:UIControlEventTouchUpInside];
+        btn.sd_layout.leftSpaceToView(itemLabel, 0).topEqualToView(itemLabel).widthIs(widthOn(80)).heightRatioToView(itemLabel, 1);
+        
+        UIView *lineView=[[UIView alloc] init];
+        lineView.backgroundColor=appLineColor;
+        [self.itemView addSubview:lineView];
+     
+        lineView.sd_layout.leftEqualToView(itemLabel).bottomSpaceToView(self.itemView, 0).heightIs(1).rightSpaceToView(self.itemView, widthOn(10));
+        
+        [self.itemView setupAutoHeightWithBottomView:btn bottomMargin:widthOn(0)];
     }
+    
+    if (self.itemsArray.count==0) {
+        itemTextField.layer.borderColor=appDarkLineColor.CGColor;
+     
+    }else{
+        itemTextField.layer.borderColor=[UIColor clearColor].CGColor;
+        
+    }
+
+    
 }
+-(void)deleteItemAction:(UIButton *)sender{
 
+    NSLog(@"删除项目");
+    QYPointModel *model=self.itemsArray[sender.tag-251];
+    [self updateItemViewWithModel:model isDeleteType:YES];
+}
+-(void)updateItemViewWithModel:(QYPointModel *)model isDeleteType:(BOOL)isDelete{
 
+    
+    for (UIView *viewQ in self.itemView.subviews) {
+        [viewQ removeFromSuperview];
+        
+    }
+
+    
+    if (isDelete) {
+        [self.itemsArray removeObject:model];
+    }else{
+        [self.itemsArray addObject:model];
+    }
+    
+    [self addItemView];
+}
 
 
 -(void)backKeybod{

@@ -64,6 +64,13 @@
     cell.stateIcon.backgroundColor=self.colorArray[indexPath.row];
     return cell;
 }
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    if (self.delegate) {
+        [self.delegate FirstViewOnSelectCellWithTitle:self.titleArray[indexPath.row]];
+    }
+}
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
 
     return widthOn(88);

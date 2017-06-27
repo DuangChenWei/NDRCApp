@@ -11,7 +11,8 @@
 #import "RegisterViewController.h"
 #import "JPUSHService.h"
 #import "QYQurstionListController.h"
-#import "QYEditMessageController.h"
+#import "QYItemController.h"
+#import "MainViewController.h"
 @interface LoginViewController ()<UITextFieldDelegate,UIScrollViewDelegate>
 @property(nonatomic,strong)UIScrollView *backScroller;
 @property(nonatomic,strong)UITextField *nameTextField;
@@ -163,6 +164,10 @@
         return;
     }
     
+    if (self.nameTextField.text) {
+        [self testPushViewControllerWithText:self.nameTextField.text];
+        return;
+    }
     
     [[ProgressHud shareHud] startLoadingWithShowView:self.view text:@""];
     
@@ -183,18 +188,21 @@
             [[NSUserDefaults standardUserDefaults] setObject:self.nameTextField.text forKey:@"tel"];
             [[NSUserDefaults standardUserDefaults] setObject:self.passwordTextField.text forKey:@"password"];
             [[NSUserDefaults standardUserDefaults] synchronize];
+            [JPUSHService setAlias:self.nameTextField.text callbackSelector:nil object:nil];
+            
             
             [[NetWorkManager sharedInstance] setUserInfoMessageWithDic:response];
             
             if ([NetWorkManager sharedInstance].powerStatus==QYUser) {
-                QYEditMessageController *qv=[[QYEditMessageController alloc] init];
+//                QYItemController *qv=[[QYItemController alloc] init];
+                QYQurstionListController *qv=[[QYQurstionListController alloc] init];
                 [self.navigationController pushViewController:qv animated:YES];
             }else{
                 [self performSegueWithIdentifier:@"pushToMain" sender:self];
             }
 
             
-            [JPUSHService setAlias:self.nameTextField.text callbackSelector:nil object:nil];
+           
             
         }else if ([returnStr isEqualToString:@"2"]){
             [[NetWorkManager sharedInstance] showExceptionMessageWithString:@"登录失败，账号名或密码错误"];
@@ -210,6 +218,30 @@
 
     
 }
+
+-(void)testPushViewControllerWithText:(NSString *)str{
+    [[NSUserDefaults standardUserDefaults] setObject:self.nameTextField.text forKey:@"tel"];
+    [[NSUserDefaults standardUserDefaults] setObject:self.passwordTextField.text forKey:@"password"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    if ([str isEqualToString:@"1"]) {
+        [NetWorkManager sharedInstance].powerStatus=Boss;
+        [self performSegueWithIdentifier:@"pushToMain" sender:self];
+    }else if ([str isEqualToString:@"2"]){
+        [NetWorkManager sharedInstance].powerStatus=Administrator;
+        MainViewController *qv=[[MainViewController alloc] init];
+       
+        [self.navigationController pushViewController:qv animated:YES];
+    }else if ([str isEqualToString:@"3"]){
+        [NetWorkManager sharedInstance].powerStatus=QYAdmin;
+        QYItemController *qv=[[QYItemController alloc] init];
+        [self.navigationController pushViewController:qv animated:YES];
+    }else if ([str isEqualToString:@"4"]){
+        [NetWorkManager sharedInstance].powerStatus=QYUser;
+        QYQurstionListController *qv=[[QYQurstionListController alloc] init];
+        [self.navigationController pushViewController:qv animated:YES];
+    }
+}
+
 -(void)regisBtnAction{
 
     RegisterViewController *vc=[[RegisterViewController alloc] init];

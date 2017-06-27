@@ -10,9 +10,13 @@
 #import "SJAvatarBrowser.h"
 #import "NetWorkManager.h"
 #import "UIImageView+WebCache.h"
+#import "QuestionRespondController.h"
+#import "myGeneralEditView.h"
+
+
 @interface QuestionMessageController ()<UIScrollViewDelegate>
 @property(nonatomic,strong)UIScrollView *backScroller;
-@property(nonatomic,strong)UIImageView *imageView;
+@property(nonatomic,strong)UIView *respondView;
 @end
 
 @implementation QuestionMessageController
@@ -32,101 +36,116 @@
     [self.view addSubview:self.backScroller];
     self.backScroller.sd_layout.spaceToSuperView(UIEdgeInsetsMake(appNavigationBarHeight, 0, 0, 0));
     
-    CGFloat leftSpace=widthOn(35);
+    UIView *topbackView=[[UIView alloc] init];
+    topbackView.backgroundColor=[UIColor whiteColor];
+    [self.backScroller addSubview:topbackView];
+    topbackView.sd_layout.leftSpaceToView(self.backScroller, 0).topSpaceToView(self.backScroller, 0).rightSpaceToView(self.backScroller, 0).heightIs(widthOn(160));
     
-    UIView *qyIDlabel=[self creatLabelWithTitle:self.model.QuestionID name:@"序号"];
-    qyIDlabel.sd_layout.leftSpaceToView(self.backScroller, leftSpace).topSpaceToView(self.backScroller, leftSpace).rightSpaceToView(self.backScroller, leftSpace).heightIs(widthOn(90));
+    CGFloat leftSpace=widthOn(30);
+    
+    myGeneralEditView *typelabel=[self creatLabelWithTitle:@"已受理" name:@"审核状态"];
+    typelabel.textField.layer.borderColor=[UIColor clearColor].CGColor;
+    typelabel.textField.textColor=[UIColor greenColor];
+    typelabel.sd_layout.leftSpaceToView(self.backScroller, leftSpace).topSpaceToView(self.backScroller, 0).rightSpaceToView(self.backScroller, leftSpace).heightIs(widthOn(80));
+    
+    UIView *lineView=[[UIView alloc] init];
+    lineView.backgroundColor=ColorWithAlpha(0x999999, 0.1);
+    [typelabel addSubview:lineView];
+    lineView.sd_layout.leftSpaceToView(typelabel, 0).rightSpaceToView(typelabel, 0).bottomSpaceToView(typelabel, 0).heightIs(1);
+    myGeneralEditView *gljlabel=[self creatLabelWithTitle:@"发改委" name:@"审核职能局"];
+    gljlabel.textField.layer.borderColor=typelabel.textField.layer.borderColor;
+    gljlabel.sd_layout.leftEqualToView(typelabel).rightEqualToView(typelabel).topSpaceToView(typelabel, 0).heightRatioToView(typelabel, 1);
+    
+    UIView *lineView1=[[UIView alloc] init];
+    lineView1.backgroundColor=appLineColor;
+    [self.backScroller addSubview:lineView1];
+    lineView1.sd_layout.leftSpaceToView(self.backScroller, 0).rightSpaceToView(self.backScroller, 0).topSpaceToView(gljlabel, 0).heightIs(2);
+
+    
+    
+    self.respondView=[[UIView alloc] init];
+    self.respondView.backgroundColor=[UIColor whiteColor];
+    [self.backScroller addSubview:self.respondView];
+    self.respondView.sd_layout.leftSpaceToView(self.backScroller, 0).topSpaceToView(lineView1, 0).rightSpaceToView(self.backScroller, 0).heightIs(0);
+    [self addResponsdMessageView];
+    
+    UIView *qyNamelabel=[self creatLabelWithTitle:self.model.QuestionID name:@"项目名称"];
+    qyNamelabel.sd_layout.leftSpaceToView(self.backScroller, leftSpace).topSpaceToView(self.respondView, leftSpace).rightSpaceToView(self.backScroller, leftSpace).heightIs(widthOn(80));
     
     UIView *qyTimeLabel=[self creatLabelWithTitle:self.model.submitTime name:@"提报时间"];
-    qyTimeLabel.sd_layout.leftEqualToView(qyIDlabel).rightEqualToView(qyIDlabel).topSpaceToView(qyIDlabel, leftSpace).heightRatioToView(qyIDlabel, 1);
+    qyTimeLabel.sd_layout.leftEqualToView(qyNamelabel).rightEqualToView(qyNamelabel).topSpaceToView(qyNamelabel, leftSpace).heightRatioToView(qyNamelabel, 1);
     
-    UIView *qyNameView=[self creatLabelWithTitle:self.model.ZRRName name:@"责任人"];
-    qyNameView.sd_layout.leftEqualToView(qyIDlabel).rightEqualToView(qyIDlabel).topSpaceToView(qyTimeLabel, leftSpace).heightRatioToView(qyIDlabel, 1);
+    UIView *bigCategoryView=[self creatLabelWithTitle:self.model.ZRRName name:@"问题大类"];
+    bigCategoryView.sd_layout.leftEqualToView(qyNamelabel).rightEqualToView(qyNamelabel).topSpaceToView(qyTimeLabel, leftSpace).heightRatioToView(qyNamelabel, 1);
     
-    UIView *QuestionTypeView=[self creatLabelWithTitle:self.model.GLJName name:@"提报类型"];
-    QuestionTypeView.sd_layout.leftEqualToView(qyIDlabel).rightEqualToView(qyIDlabel).topSpaceToView(qyNameView, leftSpace).heightRatioToView(qyIDlabel, 1);
+    UIView *littleCategoryView=[self creatLabelWithTitle:self.model.GLJName name:@"问题小类"];
+    littleCategoryView.sd_layout.leftEqualToView(qyNamelabel).rightEqualToView(qyNamelabel).topSpaceToView(bigCategoryView, leftSpace).heightRatioToView(qyNamelabel, 1);
     
     
-    UIView *QuestionMessageView=[self creatLongMessageViewWithMessage:self.model.problemContent name:@"提报问题"];
-    QuestionMessageView.sd_layout.leftEqualToView(qyIDlabel).rightEqualToView(qyIDlabel).topSpaceToView(QuestionTypeView, 0);
     
-    self.imageView=[[UIImageView alloc] init];
-    self.imageView.userInteractionEnabled=NO;
-    [self.imageView sd_setImageWithURL:[NSURL URLWithString:self.model.iconURL] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-        self.imageView.userInteractionEnabled=YES;
-        self.imageView.image=image;
-    }];
-    self.imageView.clipsToBounds=YES;
+    UIView *QuestionMessageView=[self creatLongMessageViewWithMessage:@"问题一大推怎么解决你说说看问题一大推怎么解决你说说看问题一大推怎么解决你说说看问题一大推怎么解决你说说看问题一大推怎么解决你说说看问题一大推怎么解决你说说看问题一大推怎么解决你说说看" name:@"问题描述"];
+    QuestionMessageView.sd_layout.leftEqualToView(qyNamelabel).rightEqualToView(qyNamelabel).topSpaceToView(littleCategoryView, 0);
     
-    [self.backScroller addSubview:self.imageView];
-    self.imageView.sd_layout.leftEqualToView(qyIDlabel).rightEqualToView(qyIDlabel).topSpaceToView(QuestionMessageView, leftSpace).heightIs(widthOn(510));
+    
+    [self.backScroller setupAutoHeightWithBottomView:QuestionMessageView bottomMargin:widthOn(50)];
+    
+    
+    if ([NetWorkManager sharedInstance].powerStatus==Administrator) {
+        
+        self.backScroller.sd_layout.spaceToSuperView(UIEdgeInsetsMake(appNavigationBarHeight, 0, widthOn(130), 0));
+        
+        NSMutableArray *nameArr=[NSMutableArray arrayWithObjects:@"响 应",@"处 理",@"驳 回", nil];
+        NSMutableArray *iconArr=[NSMutableArray arrayWithObjects:@"响应.png",@"处理.png",@"驳回.png", nil];
+        
+        
+        for (int i=0; i<nameArr.count; i++) {
+            UIButton *sloveBtn=[UIButton buttonWithType:UIButtonTypeCustom];
+            [sloveBtn setTitle:nameArr[i] forState:UIControlStateNormal];
+            [sloveBtn setTitleColor:appDarkLabelColor forState:UIControlStateNormal];
+            sloveBtn.titleLabel.font=[UIFont systemFontOfSize:widthOn(34)];
+            [sloveBtn setImage:[UIImage imageNamed:iconArr[i]] forState:UIControlStateNormal];
+            sloveBtn.tag=265+i;
+            [sloveBtn addTarget:self action:@selector(sloveAuestionAction:) forControlEvents:UIControlEventTouchUpInside];
+            [self.view addSubview:sloveBtn];
+            sloveBtn.sd_layout.leftSpaceToView(self.view, k_ScreenWidth/3*i).bottomSpaceToView(self.view, 0).widthIs(k_ScreenWidth/3).heightIs(widthOn(130));
+            sloveBtn.sd_cornerRadius=@6;
+            
+            UIView *lineViewEnd=[[UIView alloc] init];
+            lineViewEnd.backgroundColor=appLineColor;
+            if (i!=0) {
+                [self.view addSubview:lineViewEnd];
+                lineViewEnd.sd_layout.leftEqualToView(sloveBtn).centerYEqualToView(sloveBtn).widthIs(1).heightIs(widthOn(50));
+            }
+            
+            
+            
+            
+        }
+
+    }
+    
+    
    
-    UITapGestureRecognizer *tapimv  = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(magnifyImage)];
-    
-    [self.imageView addGestureRecognizer:tapimv];
-    NSLog(@"---%@",self.model.iconURL);
-    if ([self.model.iconURL isEqualToString:@""]) {
-        self.imageView.sd_layout.leftEqualToView(qyIDlabel).rightEqualToView(qyIDlabel).topSpaceToView(QuestionMessageView, leftSpace).heightIs(0);
-    }
-    
-    UIButton *sloveBtn=[UIButton buttonWithType:UIButtonTypeCustom];
-    [sloveBtn setTitle:@"处理" forState:UIControlStateNormal];
-    [sloveBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    sloveBtn.titleLabel.font=[UIFont systemFontOfSize:widthOn(34)];
-    [sloveBtn setBackgroundColor:appMainColor];
-    sloveBtn.tag=265;
-    [sloveBtn addTarget:self action:@selector(sloveAuestionAction:) forControlEvents:UIControlEventTouchUpInside];
-    [self.backScroller addSubview:sloveBtn];
-    sloveBtn.sd_layout.leftEqualToView(qyIDlabel).topSpaceToView(self.imageView, leftSpace).widthIs(k_ScreenWidth*0.5-leftSpace*2).heightIs(widthOn(90));
-    sloveBtn.sd_cornerRadius=@6;
-    
-    UIButton *rejectBtn=[UIButton buttonWithType:UIButtonTypeCustom];
-    [rejectBtn setTitle:@"驳回" forState:UIControlStateNormal];
-    [rejectBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    rejectBtn.titleLabel.font=[UIFont systemFontOfSize:widthOn(34)];
-    [rejectBtn setBackgroundColor:appDarkLabelColor];
-    rejectBtn.tag=266;
-    [rejectBtn addTarget:self action:@selector(sloveAuestionAction:) forControlEvents:UIControlEventTouchUpInside];
-    [self.backScroller addSubview:rejectBtn];
-    rejectBtn.sd_layout.rightEqualToView(qyIDlabel).topEqualToView(sloveBtn).widthRatioToView(sloveBtn, 1).heightRatioToView(sloveBtn, 1);
-    rejectBtn.sd_cornerRadius=@6;
-    
-    [self.backScroller setupAutoHeightWithBottomView:sloveBtn bottomMargin:widthOn(50)];
-    
-    if ([NetWorkManager sharedInstance].powerStatus!=Administrator) {
-        sloveBtn.hidden=YES;
-        rejectBtn.hidden=YES;
-    }
-    if (![self.model.state isEqualToString:@"0"]) {
-        sloveBtn.hidden=YES;
-        rejectBtn.hidden=YES;
-    }
+
     
     
 }
+-(void)addResponsdMessageView{
 
--(UIView *)creatLabelWithTitle:(NSString *) qtitle name:(NSString *)name{
+
+    UIView *tempView;
+    for (int i=0; i<3; i++) {
+       UIView *viewRe= [self creatRespondMessageWithModel:[NSString stringWithFormat:@"%d",i]];
+
+        viewRe.sd_layout.leftSpaceToView(self.respondView, 0).rightSpaceToView(self.respondView, 0).topSpaceToView(tempView?tempView:self.respondView, 0);
+        [self.respondView setupAutoHeightWithBottomView:viewRe bottomMargin:0];
+        tempView=viewRe;
+    }
+}
+-(myGeneralEditView *)creatLabelWithTitle:(NSString *) qtitle name:(NSString *)name{
     
-    UIView *viewQ=[[UIView alloc] init];
-    viewQ.layer.borderColor=appDarkLineColor.CGColor;
-    viewQ.layer.borderWidth=1;
-    viewQ.backgroundColor=[UIColor whiteColor];
+    myGeneralEditView *viewQ=[[myGeneralEditView alloc] initWithTextFieldText:qtitle leftViewWidth:widthOn(300) couldEdit:NO placeHoder:@"" leftText:name];
     [self.backScroller addSubview:viewQ];
-    viewQ.sd_cornerRadius=@6.2;
-    
-    UILabel *leftLabel=[[UILabel alloc] init];
-    leftLabel.text=name;
-    leftLabel.font=[UIFont systemFontOfSize:widthOn(34)];
-    leftLabel.textColor=[UIColor darkGrayColor];
-    [viewQ addSubview:leftLabel];
-    leftLabel.sd_layout.spaceToSuperView(UIEdgeInsetsMake(0, widthOn(20), 0, 0));
-    
-    UILabel *rightLabel=[[UILabel alloc] init];
-    rightLabel.text=qtitle;
-    rightLabel.font=leftLabel.font;
-    [viewQ addSubview:rightLabel];
-    rightLabel.textAlignment=NSTextAlignmentRight;
-    rightLabel.sd_layout.spaceToSuperView(UIEdgeInsetsMake(0, widthOn(300), 0, widthOn(20)));
     
     
     return viewQ;
@@ -135,85 +154,134 @@
 
 -(UIView *)creatLongMessageViewWithMessage:(NSString *)message name:(NSString *)name{
     
-    UIView *viewQ=[[UIView alloc] init];
-    
+    myGeneralEditView *viewQ=[[myGeneralEditView alloc] initContentMessageWithContentText:message topText:name];
     [self.backScroller addSubview:viewQ];
     
+    NSMutableArray *arr=[NSMutableArray arrayWithObjects:@"textIcon.png",@"textIcon.png",@"textIcon.png", nil];
     
-    UILabel *leftLabel=[[UILabel alloc] init];
-    leftLabel.text=name;
-    leftLabel.font=[UIFont systemFontOfSize:widthOn(34)];
-    leftLabel.textColor=[UIColor blackColor];
-    [viewQ addSubview:leftLabel];
-    leftLabel.sd_layout.leftSpaceToView(viewQ, widthOn(20)).topSpaceToView(viewQ, 0).rightSpaceToView(viewQ, 0).heightIs(widthOn(90));
-    [leftLabel updateLayout];
+
     
-    UIView *backView=[[UIView alloc] init];
-    backView.layer.borderColor=appDarkLineColor.CGColor;
-    backView.layer.borderWidth=1;
-    backView.backgroundColor=[UIColor whiteColor];
-    [viewQ addSubview:backView];
-    backView.sd_layout.leftSpaceToView(viewQ, 0).topSpaceToView(leftLabel, 0).rightSpaceToView(viewQ, 0);
-    UILabel *rightLabel=[[UILabel alloc] init];
-    rightLabel.text=message;
-    rightLabel.font=leftLabel.font;
-    rightLabel.textColor=ColorWithAlpha(0x666666, 1);
-    [backView addSubview:rightLabel];
-    rightLabel.textAlignment=NSTextAlignmentLeft;
-    rightLabel.sd_layout.leftEqualToView(leftLabel).rightSpaceToView(backView,widthOn(20)).topSpaceToView(backView, widthOn(15)).autoHeightRatio(0);
-    backView.sd_cornerRadius=@6.2;
-    [backView setupAutoHeightWithBottomView:rightLabel bottomMargin:widthOn(15)];
+    for (int i=0; i<3; i++) {
+        UIImageView *iconImage=[[UIImageView alloc] init];
+        iconImage.image=[UIImage imageNamed:arr[i]];
+        iconImage.userInteractionEnabled=YES;
+//        iconImage.contentMode = UIViewContentModeScaleAspectFit;
+        [viewQ.backView addSubview:iconImage];
+        
+        iconImage.sd_layout.leftEqualToView(viewQ.contentLabel).rightEqualToView(viewQ.contentLabel).topSpaceToView(viewQ.contentLabel,widthOn(10)+widthOn(510)*i).heightIs(widthOn(500));
+        
+        
+        UITapGestureRecognizer *tapimv  = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(magnifyImage:)];
+        
+        [iconImage addGestureRecognizer:tapimv];
+
+        [viewQ.backView setupAutoHeightWithBottomView:iconImage bottomMargin:widthOn(15)];
+        
+        
+        
+    }
     
-    [viewQ setupAutoHeightWithBottomView:backView bottomMargin:0];
+    
+    
+    
+    
     
     return viewQ;
     
     
 }
 
+-(UIView *)creatRespondMessageWithModel:(NSString *)model{
+
+    UIView *viewBack=[[UIView alloc] init];
+    viewBack.backgroundColor=[UIColor whiteColor];
+    [self.respondView addSubview:viewBack];
+    
+    
+     CGFloat leftSpace=widthOn(30);
+    
+    myGeneralEditView *timeView=[self creatLabelWithTitle:@"2017.04.06 15:12:02" name:@"审核时间"];
+    timeView.textField.layer.borderColor=[UIColor clearColor].CGColor;
+    [timeView removeFromSuperview];
+    [viewBack addSubview:timeView];
+    timeView.sd_layout.leftSpaceToView(viewBack, leftSpace).rightSpaceToView(viewBack, leftSpace).topSpaceToView(viewBack, 0).heightIs(widthOn(80));
+    
+    UIView *lineView2=[[UIView alloc] init];
+    lineView2.backgroundColor=ColorWithAlpha(0x999999, 0.1);
+    [viewBack addSubview:lineView2];
+    lineView2.sd_layout.leftEqualToView(timeView).rightEqualToView(timeView).topSpaceToView(timeView, 0).heightIs(1);
+    
+    NSString *conText=@"是不是啊实打实大师大手大脚阿达撒打开萨克达快递阿卡SD卡快速达斯柯达就爱看实践活动按客户打款时间等哈看手机打哈卡仕达";
+    if ([model isEqualToString:@"2"]) {
+        conText=@"是不是啊实打";
+    }
+    UIView *contentView=[[myGeneralEditView alloc] initContentMessageWithContentText:conText topText:@"审核说明"];
+    [viewBack addSubview:contentView];
+    contentView.sd_layout.leftSpaceToView(viewBack, leftSpace).topSpaceToView(lineView2, 0).rightSpaceToView(viewBack, leftSpace);
+    UIView *lineView1=[[UIView alloc] init];
+    lineView1.backgroundColor=appLineColor;
+    [viewBack addSubview:lineView1];
+    lineView1.sd_layout.leftSpaceToView(viewBack, 0).rightSpaceToView(viewBack, 0).bottomSpaceToView(viewBack, 0).heightIs(2);
+    
+    [viewBack setupAutoHeightWithBottomView:contentView bottomMargin:widthOn(20)+2];
+    
+  
+    
+    return viewBack;
+    
+}
+
+
 -(void)sloveAuestionAction:(UIButton *)sender{
 
     NSString *str=@"";
     if (sender.tag==265) {
-        NSLog(@"处理问题");
+        NSLog(@"响应问题");
         str=@"1";
-    }else{
-        NSLog(@"驳回问题");
+    }else if (sender.tag==266){
+        NSLog(@"处理问题");
         str=@"2";
     }
+    else{
+        NSLog(@"驳回问题");
+        str=@"3";
+    }
     
+    QuestionRespondController *mv=[[QuestionRespondController alloc] init];
+    [self.navigationController pushViewController:mv animated:YES];
 
-    [[ProgressHud shareHud] startLoadingWithShowView:self.view text:@""];
-    NSMutableDictionary *dic=[NSMutableDictionary dictionary];
-    [dic setValue:self.model.QuestionID forKey:@"ID"];
-    [dic setValue:str forKey:@"state"];
-    
-    NSLog(@"+++++%@",dic);
-    
-    [[NetWorkManager sharedInstance] GetDictionaryMethodWithUrl:@"Update_ProblemState" parameters:dic success:^(id response) {
-        NSLog(@"返回%@",response);
-        [[ProgressHud shareHud] stopLoading];
-        if ([response[@"STATE"][@"text"] isEqualToString:@"0"]) {
-            [[NetWorkManager sharedInstance] showExceptionMessageWithString:@"修改成功"];
-            [self.delegate QuestionMessageControllerRefreshMessageAction];
-            [self.navigationController popViewControllerAnimated:YES];
-        }
-        
-        
-    } failure:^(NSError *error) {
-        [[ProgressHud shareHud] stopLoading];
-        [[NetWorkManager sharedInstance] showExceptionMessageWithString:@"请求失败，请检查网络后重试"];
-    }];
+//    [[ProgressHud shareHud] startLoadingWithShowView:self.view text:@""];
+//    NSMutableDictionary *dic=[NSMutableDictionary dictionary];
+//    [dic setValue:self.model.QuestionID forKey:@"ID"];
+//    [dic setValue:str forKey:@"state"];
+//    
+//    NSLog(@"+++++%@",dic);
+//    
+//    [[NetWorkManager sharedInstance] GetDictionaryMethodWithUrl:@"Update_ProblemState" parameters:dic success:^(id response) {
+//        NSLog(@"返回%@",response);
+//        [[ProgressHud shareHud] stopLoading];
+//        if ([response[@"STATE"][@"text"] isEqualToString:@"0"]) {
+//            [[NetWorkManager sharedInstance] showExceptionMessageWithString:@"修改成功"];
+//            [self.delegate QuestionMessageControllerRefreshMessageAction];
+//            [self.navigationController popViewControllerAnimated:YES];
+//        }
+//        
+//        
+//    } failure:^(NSError *error) {
+//        [[ProgressHud shareHud] stopLoading];
+//        [[NetWorkManager sharedInstance] showExceptionMessageWithString:@"请求失败，请检查网络后重试"];
+//    }];
 
     
     
 }
 
 
-- (void)magnifyImage
+- (void)magnifyImage:(UIGestureRecognizer *)tap
 {
     NSLog(@"局部放大");
-    [SJAvatarBrowser showImage:self.imageView];//调用方法
+    UIImageView *iconImage=(UIImageView *)[tap view];
+    [SJAvatarBrowser showImage:iconImage];//调用方法
 }
 
 #pragma mark - UIScrollViewDelegate

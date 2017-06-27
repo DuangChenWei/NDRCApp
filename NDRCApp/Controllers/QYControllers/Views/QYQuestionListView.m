@@ -22,15 +22,26 @@
 -(void)addAllViews{
     
 
+    NSArray *nameArr=@[@"已受理",@"处理中",@"未处理",@"已驳回",@"已处理"];
     
-    self.personBtn=[self creatButtonWithFrame:CGRectMake((k_ScreenWidth-widthOn(600))/3, 0, widthOn(300), widthOn(80)) title:@"全部责任人"];
+    for (int i=0; i<5; i++) {
+        UIButton *typeBtn=[UIButton buttonWithType:UIButtonTypeCustom];
+        [typeBtn setTitle:nameArr[i] forState:UIControlStateNormal];
+        [typeBtn.titleLabel setFont:[UIFont systemFontOfSize:widthOn(32)]];
+        typeBtn.backgroundColor=appMainColor;
+        if (i==0) {
+            [typeBtn setBackgroundColor:ColorWithAlpha(0xd6362b, 1)];
+        }
+        [typeBtn setTitleColor:ColorWithAlpha(0xffffff, 0.8) forState:UIControlStateNormal];
+        typeBtn.tag=123+i;
+        [self addSubview:typeBtn];
+        typeBtn.sd_layout.leftSpaceToView(self, k_ScreenWidth*0.2*i).topSpaceToView(self, 0).widthIs(k_ScreenWidth*0.2).heightIs(widthOn(80));
+        [typeBtn addTarget:self action:@selector(onClickTypeBtnAction:) forControlEvents:UIControlEventTouchUpInside];
+    }
+ 
     
     
-    
-    self.typeBtn=[self creatButtonWithFrame:CGRectMake(k_ScreenWidth-CGRectGetMaxX(self.personBtn.frame), CGRectGetMinY(self.personBtn.frame),CGRectGetWidth(self.personBtn.frame), CGRectGetHeight(self.personBtn.frame)) title:@"全部状态"];
-    
-    
-    UIView *lineView=[[UIView alloc] initWithFrame:CGRectMake(0,CGRectGetMaxY(self.personBtn.frame), k_ScreenWidth, 1)];
+    UIView *lineView=[[UIView alloc] initWithFrame:CGRectMake(0,widthOn(80), k_ScreenWidth, 1)];
     lineView.backgroundColor=appLineColor;
     [self addSubview:lineView];
     self.tableView=[[UITableView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(lineView.frame), k_ScreenWidth, CGRectGetHeight(self.frame)-CGRectGetMaxY(lineView.frame)) style:UITableViewStylePlain];
@@ -40,21 +51,19 @@
     
     
 }
+-(void)onClickTypeBtnAction:(UIButton *)sender{
 
--(UIButton *)creatButtonWithFrame:(CGRect )frame title:(NSString *)title{
+    for (int i=0; i<5; i++) {
+        UIButton *btn=(UIButton *)[self viewWithTag:123+i];
+        [btn setBackgroundColor:appMainColor];
+    }
+    [sender setBackgroundColor:ColorWithAlpha(0xd6362b, 1)];
     
-    UIButton *btn=[UIButton buttonWithType:UIButtonTypeCustom];
-    btn.frame=frame;
-    [btn setTitle:title forState:UIControlStateNormal];
-    [btn setTitleColor:ColorWithAlpha(0x666666, 1) forState:UIControlStateNormal];
-    btn.titleLabel.font=[UIFont systemFontOfSize:widthOn(32)];
-    [self addSubview:btn];
+    if (self.delegate) {
+        [self.delegate OnClickTypeBtnWithIndex:sender.tag-123];
+    }
     
-    UIImageView *sanjiaoImv=[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"sanjiaoDark"]];
-    [btn addSubview:sanjiaoImv];
-    sanjiaoImv.sd_layout.rightSpaceToView(btn, widthOn(34)).centerYEqualToView(btn).widthIs(widthOn(10)).heightIs(widthOn(7));
-    
-    return btn;
+//    NSLog(@"点击%ld",[sender tag]);
 }
 
 /*

@@ -7,8 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "QYPointModel.h"
 @interface QYMessageEditView : UIView<UIScrollViewDelegate,UITextFieldDelegate>
+
+{
+
+    UITextField *itemTextField;
+}
+
 @property(nonatomic,strong)UIScrollView *backScroller;
 @property(nonatomic,strong)UITextField *ZZJGTextField;
 @property(nonatomic,strong)UITextField *qyNameTextfield;
@@ -23,4 +29,5 @@
 @property(nonatomic,strong)NSMutableArray *itemsArray;
 -(void)backKeybod;
 -(void)addItemView;
+-(void)updateItemViewWithModel:(QYPointModel *)model isDeleteType:(BOOL)isDelete;
 @end

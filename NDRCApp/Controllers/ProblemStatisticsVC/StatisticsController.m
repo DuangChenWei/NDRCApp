@@ -8,7 +8,8 @@
 
 #import "StatisticsController.h"
 #import "StatisticsMainView.h"
-@interface StatisticsController ()
+#import "QuestionListController.h"
+@interface StatisticsController ()<statisticesThirdViewDelegate,statisticesSecondViewDelegate,statisticesFirstViewDelegate>
 @property(nonatomic,strong)StatisticsMainView *mainView;
 @end
 
@@ -20,9 +21,31 @@
     [self initMainTitleBar:@"问题汇总"];
     self.menubtn.hidden=YES;
     self.mainView=[[StatisticsMainView alloc] initWithFrame:CGRectMake(0, appNavigationBarHeight, k_ScreenWidth, k_ScreenHeight-appNavigationBarHeight)];
+    self.mainView.firstView.delegate=self;
+    self.mainView.secondView.delegate=self;
+    self.mainView.thirdView.delegate=self;
     [self.view addSubview:self.mainView];
     
     // Do any additional setup after loading the view.
+}
+-(void)FirstViewOnSelectCellWithTitle:(NSString *)titleStr{
+
+    [self pushQuestionListVCWithTitle:titleStr];
+}
+-(void)SecondViewOnSelectCellWithTitle:(NSString *)titleStr{
+
+    [self pushQuestionListVCWithTitle:titleStr];
+}
+-(void)ThirdViewOnSelectCellWithTitle:(NSString *)titleStr{
+
+    [self pushQuestionListVCWithTitle:titleStr];
+}
+
+-(void)pushQuestionListVCWithTitle:(NSString*)titleStr{
+
+    QuestionListController *qv=[[QuestionListController alloc] init];
+    qv.titleStr=titleStr;
+    [self.navigationController pushViewController:qv animated:YES];
 }
 
 - (void)didReceiveMemoryWarning {
